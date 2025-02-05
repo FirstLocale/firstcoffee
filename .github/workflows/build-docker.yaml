@@ -30,6 +30,6 @@ jobs:
       - name: build and push docker image
         if: github.event_name == 'push'
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/docker-test:latest . --push
+          docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/firstcoffee:latest . --push
 
   # buildx doesn't store under local docker daemon image storage
