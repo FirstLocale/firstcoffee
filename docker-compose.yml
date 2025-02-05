@@ -1,11 +1,10 @@
-version: "3.8"  # Specifies the Docker Compose file format version
 services: 
   frontend:  # Name of the service (could be 'web' or 'app' too)
     container_name: frontend  # Explicitly names the container
     
     build:
       context: .  # Build context - where Docker looks for Dockerfile
-      target: dev  # Specifically targets the development stage in multi-stage Dockerfile
+      target: builder  # Specifically targets the development stage in multi-stage Dockerfile
     
     restart: always  # Automatically restart if container stops
     
