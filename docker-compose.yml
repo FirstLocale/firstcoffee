@@ -9,7 +9,7 @@ services:
     
     restart: always  # Automatically restart if container stops
     
-    command: yarn dev  # Overrides default CMD, runs development server
+    command: npm run dev  # Overrides default CMD, runs development server
     
     environment:
       - NODE_ENV=development  # Sets environment to development mode
