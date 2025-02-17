@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-zinc-900 p-4">
+    <div className="p-4">
       {homeData.map((home) => (
         <div key={home.id}>
           <h2 className="text-3xl">{String(home.title).toUpperCase()}</h2>

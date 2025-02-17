@@ -6,7 +6,7 @@ import { FaInstagram } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-zinc-800">
+    <footer className="w-full flex justify-evenly bottom-0 left-0 sticky bg-zinc-800">
       <Image
         className="rounded-full"
         src="/firstlogo.png"
@@ -24,14 +24,14 @@ const Footer: React.FC = () => {
       </section>
       <section>
         <a
-          href="https://www.instagram.com/first.coffeeshop/"
-          aria-label="Instagram"
+          href="https://www.facebook.com/first.coffeeshop/"
+          aria-label="Facebook"
         >
           <FaFacebook />
         </a>
         <a
-          href="https://www.facebook.com/first.coffeeshop/"
-          aria-label="Facebook"
+          href="https://www.instagram.com/first.coffeeshop/"
+          aria-label="Instagram"
         >
           <FaInstagram />
         </a>
