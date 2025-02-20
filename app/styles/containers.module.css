@@ -1,0 +1,36 @@
+/* Regular coffee prices container: */
+.regCon {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2vh;
+    z-index: -1;
+}
+
+/* Large coffee prices container: */
+.lrgCon {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2vh;
+    z-index: -1;
+}
+
+/* Large coffee prices container: */
+.drinkCon {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2vh;
+    z-index: -1;
+}
+

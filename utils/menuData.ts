@@ -6,8 +6,8 @@ export const drinkData: Drink[] = [
   {
     id: 1,
     item: "Coffee.",
-    image: "/placeholder.jpg",
-    alt: "placeholder text",
+    image: "/coffee.avif",
+    alt: "birds eye view of a premium coffee",
     height: 200,
     width: 500,
     menu: [
@@ -15,13 +15,13 @@ export const drinkData: Drink[] = [
         id: 1,
         item: "Espresso",
         reg: 2.4,
-        lrg: "",
+        lrg: "0",
       },
       {
         id: 2,
         item: "Long Black",
         reg: 2.5,
-        lrg: "",
+        lrg: "0",
       },
       {
         id: 3,
@@ -33,13 +33,13 @@ export const drinkData: Drink[] = [
         id: 4,
         item: "Cortado",
         reg: 2.7,
-        lrg: "",
+        lrg: "0",
       },
       {
         id: 5,
         item: "Flat White",
         reg: 3.0,
-        lrg: "",
+        lrg: "0",
       },
       {
         id: 6,
@@ -63,21 +63,21 @@ export const drinkData: Drink[] = [
         id: 9,
         item: "Guest Coffee",
         reg: "+ 0.50",
-        lrg: "",
+        lrg: "0",
       },
       {
         id: 10,
         item: "Oat | Coconut",
         reg: "+ 0.50",
-        lrg: "",
+        lrg: "0",
       },
     ],
   },
   {
     id: 2,
     item: "Coffee on the Rocks.",
-    image: "/placeholder.jpg",
-    alt: "placeholder text",
+    image: "/icedCoffee.avif",
+    alt: "glass of iced coffee with a milky mix",
     height: 200,
     width: 500,
     menu: [
@@ -85,29 +85,33 @@ export const drinkData: Drink[] = [
         id: 1,
         item: "Iced Espresso Tonic",
         reg: 3.9,
+        lrg: "0",
       },
       {
         id: 2,
         item: "Iced Americano",
         reg: 3.3,
+        lrg: "0",
       },
       {
         id: 3,
         item: "Iced Latte",
         reg: 3.5,
+        lrg: "0",
       },
       {
         id: 4,
         item: "Iced Tea",
         reg: 2.95,
+        lrg: "0",
       },
     ],
   },
   {
     id: 3,
     item: "Not Coffee.",
-    image: "/placeholder.jpg",
-    alt: "placeholder text",
+    image: "/hotChoc.avif",
+    alt: "a rustic hot chocolate with marshmallows",
     height: 200,
     width: 500,
     menu: [
@@ -117,7 +121,7 @@ export const drinkData: Drink[] = [
         opts: `Chai | Matcha | Turmeric | Beetroot |
           Make it dirty + 1.00`,
         reg: 3.2,
-        lrg: "",
+        lrg: "0",
       },
       {
         id: 2,
@@ -140,7 +144,7 @@ export const drinkData: Drink[] = [
         opts: `Decaf | Breakfast | Green | Peppermint
           | Red Berry | Camomile`,
         reg: 2.5,
-        lrg: "",
+        lrg: "0",
       },
     ],
   },
