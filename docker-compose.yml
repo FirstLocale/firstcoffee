@@ -1,5 +1,5 @@
 services:
-  frontend: # Name of the service (could be 'web' or 'app' too)
+  app: # Name of the service (could be 'web' or 'app' too)
     container_name: frontend # Explicitly names the container
 
     build:
