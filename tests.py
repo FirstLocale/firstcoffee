@@ -23,7 +23,10 @@ def check_header_text(url, xpath='//h1'):
 pages_to_test = [
     "https://www.example.com/",
     "http://localhost:3000",
-    "http://localhost:3000/page2"
+    "http://localhost:3000/about",
+    "http://localhost:3000/contact",
+    "http://localhost:3000/events",
+    "http://localhost:3000/menus"
 ]
 
 # Loop through each page and check the header
