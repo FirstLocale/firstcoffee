@@ -1,0 +1,16 @@
+# Use Playwright's image as a base (comes with browsers pre-installed)
+FROM mcr.microsoft.com/playwright:v1.40.0-focal
+
+# Install Python and Selenium
+RUN apt-get update && apt-get install -y python3 python3-pip \
+    && pip3 install selenium
+
+WORKDIR /app
+COPY . .
+
+# Set environment variables for browser testing
+ENV PYTHONUNBUFFERED=1
+ENV DISPLAY=:99
+
+# Run the Python test script
+CMD ["python3", "tests.py"]
