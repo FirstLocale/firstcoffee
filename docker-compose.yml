@@ -1,6 +1,6 @@
 services:
   app: # Name of the service (could be 'web' or 'app' too)
-    container_name: frontend # Explicitly names the container
+    container_name: menupgv1.2 # Explicitly names the container
 
     build:
       context: . # Build context - where Docker looks for Dockerfile
