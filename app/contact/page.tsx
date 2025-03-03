@@ -1,9 +1,13 @@
-import { contactData } from "@/utils/contactData";
+//import { contactData } from "@/utils/contactData";
 
-export default function ContactPage() {
+import { GetContactInfo } from "@/utils/getContactInfo";
+
+export default async function ContactPage() {
+  const contactData = await GetContactInfo();
+  console.log(contactData);
   return (
     <div className="p-4 text-center">
-      {contactData.map((contact) => (
+      {/* {contactData.map((contact) => (
         <div key={contact.id}>
           <h2 className="text-3xl p-5">{contact.title}</h2>
           <p>{contact.text}</p>
@@ -26,7 +30,7 @@ export default function ContactPage() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
-      </div>
+      </div> */}
     </div>
   );
 }
