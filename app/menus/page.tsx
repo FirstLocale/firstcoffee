@@ -1,11 +1,25 @@
-import DrinksCard from "@/components/menus/drinks";
-import BreakfastCard from "@/components/menus/breakfast";
+import Menu from "@/components/Menu";
+import { breakfastData, drinkData } from "@/utils/menuData";
 
-export default function MenusCards() {
+export default function MenuPage() {
   return (
-    <>
-      <DrinksCard/>
-      <BreakfastCard/>
-    </>
-  )
+    <div className="flex flex-col gap-6 items-center p-4">
+
+      <Menu 
+        title="Drink." 
+        headerImage="/variousDrinks.jpg" 
+        headerAlt="Cup of coffee" 
+        data={drinkData} 
+        showLarge={true} 
+      />
+      
+      <Menu 
+        title="Breakfast." 
+        headerImage="/breakfasts.avif" 
+        headerAlt="Breakfast" 
+        data={breakfastData} 
+        showLarge={false} 
+      />
+    </div>
+  );
 }
