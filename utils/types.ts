@@ -69,11 +69,42 @@ export type Contact = {
   detail: Detail[];
 };
 
-type Detail = {
+export type Detail = {
   id: number;
   name: string;
   tel: string | number;
   email: string;
+};
+
+// ------ CONTACT SHOPIFY QUERY -----
+
+export type ShopifyMetaobjectField = {
+  key: string;
+  value: string;
+};
+
+export type ShopifyMetaobject = {
+  id: string;
+  handle: string;
+  type: string;
+  fields: ShopifyMetaobjectField[];
+  field?: { 
+    references?: ShopifyMetaobjectConnection; 
+  };
+};
+
+export type ShopifyMetaobjectEdge = {
+  node: ShopifyMetaobject;
+};
+
+export type ShopifyMetaobjectConnection = {
+  edges: ShopifyMetaobjectEdge[];
+};
+
+export type ShopifyContactInfoResponse = {
+  data: {
+    metaobjects: ShopifyMetaobjectConnection;
+  };
 };
 
 // ----- EVENTS -----
