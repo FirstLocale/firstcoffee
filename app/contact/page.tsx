@@ -1,24 +1,18 @@
-// page.tsx
-
-import { GetContactInfo } from "@/utils/getContactInfo";
-import {
-  ShopifyContactInfoResponse,
-  ShopifyMetaobject,
-  ShopifyMetaobjectEdge,
-} from "../../utils/types";
+import { GetInfo } from "@/utils/getInfo";
+import { ShopifyMetaobject, ShopifyMetaobjectEdge } from "@/utils/types";
 
 export default async function ContactPage() {
-  const contactData: ShopifyContactInfoResponse | null = await GetContactInfo();
+  const contactData = await GetInfo("contact_info", "details", false);
 
-  if (!contactData || !contactData.data.metaobjects.edges[0]) {
+  if (!contactData || !contactData.edges[0]) {
     return <div>Could not load Contact Information.</div>;
   }
 
-  const contactInfo = contactData.data.metaobjects.edges[0].node;
+  const contactInfo = contactData.edges[0].node;
 
-
-  const detailsEdges =
-    contactInfo.field?.references?.edges as ShopifyMetaobjectEdge[] | undefined;
+  const detailsEdges = contactInfo.field?.references?.edges as
+    | ShopifyMetaobjectEdge[]
+    | undefined;
 
   const details: ShopifyMetaobject[] = detailsEdges
     ? detailsEdges.map((edge) => edge.node)
@@ -30,12 +24,15 @@ export default async function ContactPage() {
 
   return (
     <div className="p-4 text-center">
-      <h2 className="text-3xl p-5">{getFieldValue(contactInfo, "title")}</h2>
+      <h1 className="text-3xl p-5">{getFieldValue(contactInfo, "title")}</h1>
       <p>{getFieldValue(contactInfo, "text")}</p>
       <div className="flex flex-col justify-center p-5">
         {details.map((detail) => (
           <div key={detail.id} className="p-5">
-            <p>{`${getFieldValue(detail, "name")} | ${getFieldValue(detail, "tel")} | ${getFieldValue(detail, "email")}`}</p>
+            <p>{`${getFieldValue(detail, "name")} | ${getFieldValue(
+              detail,
+              "tel"
+            )} | ${getFieldValue(detail, "email")}`}</p>
           </div>
         ))}
       </div>

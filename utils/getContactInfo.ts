@@ -1,11 +1,9 @@
-// getContactInfo.ts
-
 import { ShopifyContactInfoResponse } from "../utils/types";
 
 export async function GetContactInfo(): Promise<ShopifyContactInfoResponse | null> {
   try {
     console.log("Fetching data from Shopify...");
-    console.log("This is the URL:", process.env.SHOPIFY_STORE_DOMAIN)
+    console.log("This is the URL:", process.env.SHOPIFY_STORE_DOMAIN);
 
     const response = await fetch(
       `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2024-01/graphql.json`,
