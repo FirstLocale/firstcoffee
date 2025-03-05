@@ -1,24 +1,25 @@
+// Shopify returns values as strings, even when defined as int
 // ------ HOME -----
 
 export type Home = {
-  id: number;
+  id: number | string;
   title: string;
   text: string;
   image: string;
   alt: string;
-  height: number;
-  width: number;
+  height: number | string;
+  width: number | string;
 };
 
 // ------ MENU -----
 
 export type Drink = {
-  id: number;
+  id: number | string;
   item: string;
   image: string;
   alt: string;
-  height: number;
-  width: number;
+  height: number; // change this later
+  width: number; // change this later
   menu: MenuItem[];
 };
 
@@ -36,26 +37,26 @@ export type Breakfast = {
   desc: string;
   image: string;
   alt: string;
-  height: number;
-  width: number;
+  height: number; // change this later
+  width: number; // change this later
   menu?: MenuItem[];
 };
 
 // ------ ABOUT -----
 
 export type About = {
-  id: number;
+  id: number | string;
   title: string;
   text: string;
   staff: Staff[];
 };
 
 type Staff = {
-  id: number;
+  id: number | string;
   image: string;
   alt: string;
-  height: number;
-  width: number;
+  height: number | string;
+  width: number | string;
   name: string;
   rank: string;
 };
@@ -63,24 +64,29 @@ type Staff = {
 // ------ CONTACT -----
 
 export type Contact = {
-  id: number;
+  id: number | string;
   title: string;
   text: string;
   detail: Detail[];
 };
 
 export type Detail = {
-  id: number;
+  id: number | string;
   name: string;
   tel: string | number;
   email: string;
 };
 
-// ------ CONTACT SHOPIFY QUERY -----
+// ------ SHOPIFY QUERY -----
 
 export type ShopifyMetaobjectField = {
   key: string;
   value: string;
+  reference?: {
+    image: {
+      url: string;
+    };
+  };
 };
 
 export type ShopifyMetaobject = {
@@ -88,8 +94,8 @@ export type ShopifyMetaobject = {
   handle: string;
   type: string;
   fields: ShopifyMetaobjectField[];
-  field?: { 
-    references?: ShopifyMetaobjectConnection; 
+  field?: {
+    references?: ShopifyMetaobjectConnection;
   };
 };
 
@@ -110,18 +116,18 @@ export type ShopifyContactInfoResponse = {
 // ----- EVENTS -----
 
 export type Events = {
-  id: number;
+  id: number | string;
   title: string;
   desc: string;
   image: string;
   alt: string;
-  height: number;
-  width: number;
+  height: number | string;
+  width: number | string;
   dates?: Dates[];
 };
 
 type Dates = {
-  id: number;
+  id: number | string;
   date: string;
   desc: string;
 };
