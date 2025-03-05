@@ -45,7 +45,7 @@ export default async function Home() {
   });
 
   return (
-    <div className="p-4">
+    <div className="max-w-screen-lg mx-auto px-6 pt-36">
       {homes.map((home) => (
         <div key={home.id}>
           <h1 className="text-3xl text-center mb-4">
