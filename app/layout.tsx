@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import LocalFont from "next/font/local"
 
 export const metadata: Metadata = {
   title: "First",
   description: "First Coffee",
 };
+
+const cutiveFont = LocalFont({
+  src: '../public/fonts/CutiveRegular.ttf',
+  variable: '--font-cutive',
+  display: 'swap',
+});
 
 export default function RootLayout({
   children,
@@ -14,11 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`antialiased`} aria-live="polite">
+    <html lang="en" className={cutiveFont.variable}>
+      <body className={`antialiased ${cutiveFont.variable}`} aria-live="polite">
         <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );
