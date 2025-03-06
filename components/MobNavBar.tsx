@@ -89,7 +89,7 @@ const MobNav: React.FC = () => {
                         <Link
                         href="/menus"
                         aria-label="Menus"
-                        className="text-xl py-2 block hover:underline hover:decoration-orange-500"
+                        className="text-xl py-2 pl-3 block hover:underline hover:decoration-orange-500"
                         onClick={toggleMenu}
                         >
                         <strong className="font-normal">Menus.</strong>
@@ -100,7 +100,7 @@ const MobNav: React.FC = () => {
                         <Link
                         href="/about"
                         aria-label="About"
-                        className="text-xl py-2 block hover:underline hover:decoration-orange-500"
+                        className="text-xl py-2 pl-3 block hover:underline hover:decoration-orange-500"
                         onClick={toggleMenu}
                         >
                         <strong className="font-normal">About.</strong>
@@ -111,7 +111,7 @@ const MobNav: React.FC = () => {
                         <Link
                         href="/events"
                         aria-label="Events"
-                        className="text-xl py-2 block hover:underline hover:decoration-orange-500"
+                        className="text-xl py-2 pl-3 block hover:underline hover:decoration-orange-500"
                         onClick={toggleMenu}
                         >
                         <strong className="font-normal">Events.</strong>
@@ -122,14 +122,14 @@ const MobNav: React.FC = () => {
                         <Link
                         href="/contact"
                         aria-label="Contact"
-                        className="text-xl py-2 block hover:underline hover:decoration-orange-500"
+                        className="text-xl py-2 pl-3 block hover:underline hover:decoration-orange-500"
                         onClick={toggleMenu}
                         >
                         <strong className="font-normal">Contact.</strong>
                         </Link>
                     </motion.div>
 
-                    <motion.div variants={linkVariants} className="flex gap-4 mt-6">
+                    <motion.div variants={linkVariants} className="flex gap-4 pl-6">
                         <a
                         href="https://www.instagram.com/first.coffeeshop/"
                         aria-label="Instagram"
