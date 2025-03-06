@@ -35,7 +35,7 @@ const Header: React.FC = () => {
               target="_blank"
               rel="noopen noreferrer"
             >
-              <FaFacebook />
+              <FaInstagram />
             </a>
             <a
               href="https://www.facebook.com/first.coffeeshop/"
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
               target="_blank"
               rel="noopen noreferrer"
             >
-              <FaInstagram />
+              <FaFacebook />
             </a>
           </div>
         </div>

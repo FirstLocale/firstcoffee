@@ -12,7 +12,7 @@ export default async function MenuPage() {
   const { drinkData, breakfastData } = menuData;
 
   return (
-    <div className="flex flex-col gap-6 items-center p-4">
+    <div className="max-w-screen-lg mx-auto font-cutive text-center px-2 pb-5 sm:px-6 pt-36">
       <Menu
         title="Drink."
         headerImage="/variousDrinks.jpg"

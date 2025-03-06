@@ -45,12 +45,12 @@ export default async function Home() {
   });
 
   return (
-    <div className="max-w-screen-lg mx-auto font-cutive sm:px-6 pt-36">        
+    <div className="max-w-screen-lg mx-auto font-cutive px-2 pb-5 sm:px-6 pt-36">        
   {homes.map((home, index) => (
     <div key={home.id}>
       {index === 0 ? (
         //! First section with unique styling - highlighted text over image
-        <div className="relative pb-10">
+        <div className="relative pb-0 sm:pb-10">
           <div className="flex justify-end absolute z-0 w-full pr-2 sm:pr-0">
             <Image
               className="w-10 sm:w-[100px] transform -rotate-[15deg]"
@@ -68,7 +68,7 @@ export default async function Home() {
             height={home.height}
           />
     
-          <div className="flex flex-col justify-end absolute bottom-12 left-2 w-[80%] h-[70%] sm:left-8 max-w-xl">
+          <div className="flex flex-col justify-end absolute left-2 w-[80%] h-[70%] top-11 sm:left-8 max-w-xl">
             <h1 className="mb-2 text-xs sm:text-3xl">
               <span className="box-decoration-clone bg-[#241f21] text-white pt-2 px-1 leading-8">
                 {String(home.title).toUpperCase()}
@@ -83,7 +83,7 @@ export default async function Home() {
         </div>
       ) : (
         //! For all other sections, alternate layout based on odd/even index
-        <div className="flex flex-col md:flex-row items-center gap-8 py-12">
+        <div className="flex flex-col md:flex-row items-center sm:gap-8 py-12">
           {/* If index is odd, image on left; if even, image on right */}
           {index % 2 !== 0 ? (
             // Odd indexes (1, 3, 5...) - Image on left, text on right

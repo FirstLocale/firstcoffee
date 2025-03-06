@@ -40,7 +40,7 @@ export default async function AboutPage() {
   };
 
   return (
-    <div className="p-4 text-center">
+    <div className="max-w-screen-lg mx-auto font-cutive text-center px-2 pb-5 sm:px-6 pt-36">
       <h1 className="text-3xl p-5">{getFieldValue(aboutInfo, "title")}</h1>
       <p>{getFieldValue(aboutInfo, "desc")}</p>
       <div className="flex flex-col md:flex-row gap-6 p-5 justify-center">

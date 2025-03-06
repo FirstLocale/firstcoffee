@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import LocalFont from "next/font/local"
 
 export const metadata: Metadata = {
-  title: "First",
+  title: "First.",
   description: "First Coffee",
 };
 
