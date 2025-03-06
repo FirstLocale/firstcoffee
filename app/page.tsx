@@ -45,135 +45,87 @@ export default async function Home() {
   });
 
   return (
-    <div className="max-w-screen-lg mx-auto px-6 pt-36 font-cutive">
-      {homes.map((home, index) => (
-  <div key={home.id}>
-    {index === 0 ? (
-      // First section layout:
-      <div className="relative pb-10">
-        <div className="flex justify-end absolute z-0 w-full">
+    <div className="max-w-screen-lg mx-auto font-cutive sm:px-6 pt-36">        
+  {homes.map((home, index) => (
+    <div key={home.id}>
+      {index === 0 ? (
+        //! First section with unique styling - highlighted text over image
+        <div className="relative pb-10">
+          <div className="flex justify-end absolute z-0 w-full pr-2 sm:pr-0">
+            <Image
+              className="w-10 sm:w-[100px] transform -rotate-[15deg]"
+              src='/straightOuttaClopton.webp'
+              alt="straight outta clopton CD sticker image"
+              width={100}
+              height={100}
+            />
+          </div>
           <Image
-            className="transform -rotate-[15deg]"
-            src='/straightOuttaClopton.webp'
-            alt="straight outta clopton CD sticker image"
-            width={100}
-            height={100}
-          />
-        </div>
-        <Image
-          className="w-full"
-          src={home.image}
-          alt={home.alt}
-          width={home.width}
-          height={home.height}
-        />
-  
-        <div className="absolute bottom-12 left-8 max-w-md">
-          <h1 className="text-2xl mb-2">
-            <span className="box-decoration-clone bg-[#241f21] text-white pt-2 px-1 leading-8">
-              {String(home.title)}
-            </span>
-          </h1>
-          <p className="text-md">
-            <span className="box-decoration-clone bg-[#241f21] bg-opacity-90 text-white pt-1 px-1 leading-7">
-              {home.text}
-            </span>
-          </p>
-        </div>
-      </div>
-    ) : index === 1 ? (
-      // Second section layout: (image left, title and text right)
-      <div className="flex flex-col md:flex-row items-center gap-8">
-        <div className="md:w-1/2">
-          <Image
+            className="w-full"
             src={home.image}
             alt={home.alt}
             width={home.width}
             height={home.height}
           />
+    
+          <div className="flex flex-col justify-end absolute bottom-12 left-2 w-[80%] h-[70%] sm:left-8 max-w-xl">
+            <h1 className="mb-2 text-xs sm:text-3xl">
+              <span className="box-decoration-clone bg-[#241f21] text-white pt-2 px-1 leading-8">
+                {String(home.title).toUpperCase()}
+              </span>
+            </h1>
+            <p className="text-[0.6rem] sm:text-lg">
+              <span className="box-decoration-clone bg-[#241f21] bg-opacity-90 text-white pt-1 px-1 sm:leading-7">
+                {home.text}
+              </span>
+            </p>
+          </div>
         </div>
-        <div className="md:w-1/2">
-          <h1 className="text-3xl mb-4">
-            {String(home.title).toUpperCase()}
-          </h1>
-          <p>{home.text}</p>
+      ) : (
+        //! For all other sections, alternate layout based on odd/even index
+        <div className="flex flex-col md:flex-row items-center gap-8 py-12">
+          {/* If index is odd, image on left; if even, image on right */}
+          {index % 2 !== 0 ? (
+            // Odd indexes (1, 3, 5...) - Image on left, text on right
+            <>
+              <div className="md:w-1/2 pb-10">
+                <Image
+                  src={home.image}
+                  alt={home.alt}
+                  width={home.width}
+                  height={home.height}
+                />
+              </div>
+              <div className="md:w-1/2">
+                <h1 className="text-3xl mb-4">
+                  {String(home.title).toUpperCase()}
+                </h1>
+                <p>{home.text}</p>
+              </div>
+            </>
+          ) : (
+            // Even indexes (2, 4, 6...) - Text on left, image on right
+            <>
+              <div className="md:w-1/2 order-2 md:order-1">
+                <h1 className="text-3xl mb-4">
+                  {String(home.title).toUpperCase()}
+                </h1>
+                <p>{home.text}</p>
+              </div>
+              <div className="md:w-1/2 order-1 md:order-2 pb-10">
+                <Image
+                  src={home.image}
+                  alt={home.alt}
+                  width={home.width}
+                  height={home.height}
+                />
+              </div>
+            </>
+          )}
         </div>
-      </div>
-    ) : index === 2 ? (
-      // Third section layout:
-      <div className="flex flex-col md:flex-row items-center gap-8">
-        <div className="md:w-1/2">
-          <Image
-            src={home.image}
-            alt={home.alt}
-            width={home.width}
-            height={home.height}
-          />
-        </div>
-        <div className="md:w-1/2">
-          <h1 className="text-3xl mb-4">
-            {String(home.title).toUpperCase()}
-          </h1>
-          <p>{home.text}</p>
-        </div>
-      </div>
-    ) : index === 3 ? (
-      // Fourth section layout:
-      <div className="flex flex-col md:flex-row items-center gap-8">
-        <div className="md:w-1/2">
-          <Image
-            src={home.image}
-            alt={home.alt}
-            width={home.width}
-            height={home.height}
-          />
-        </div>
-        <div className="md:w-1/2">
-          <h1 className="text-3xl mb-4">
-            {String(home.title).toUpperCase()}
-          </h1>
-          <p>{home.text}</p>
-        </div>
-      </div>
-    ) : index === 4 ? (
-      // Fifth section layout:
-      <div className="flex flex-col md:flex-row items-center gap-8">
-        <div className="md:w-1/2">
-          <Image
-            src={home.image}
-            alt={home.alt}
-            width={home.width}
-            height={home.height}
-          />
-        </div>
-        <div className="md:w-1/2">
-          <h1 className="text-3xl mb-4">
-            {String(home.title).toUpperCase()}
-          </h1>
-          <p>{home.text}</p>
-        </div>
-      </div>
-    ) : (
-      // Sixth section layout (index 5):
-      <div className="flex flex-col md:flex-row items-center gap-8">
-        <div className="md:w-1/2">
-          <Image
-            src={home.image}
-            alt={home.alt}
-            width={home.width}
-            height={home.height}
-          />
-        </div>
-        <div className="md:w-1/2">
-          <h1 className="text-3xl mb-4">
-            {String(home.title).toUpperCase()}
-          </h1>
-          <p>{home.text}</p>
-        </div>
-      </div>
-    )}
-  </div>
-))}
+      )}
     </div>
+  ))}
+</div>
   );
 }
