@@ -97,68 +97,90 @@ export default function Menu({
                   />
                 )}
                 <div className="flex gap-6">
-                  <div className="mt-2 w-[20%]">
-                    <h3 className="flex justify-center mb-3 text-lg">REG</h3>
-                    {category.menu?.map((menuItem) => (
-                      <div
-                        key={menuItem.id}
-                        className="border-b border-zinc-700 py-2"
-                      >
-                        <div className="flex gap-2 text-base justify-center">
-                          <p>
-                            {typeof menuItem.reg === "number"
-                              ? `${menuItem.reg.toFixed(2)}`
-                              : `${menuItem.reg}`}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {showLarge && (
+                  {category.menu?.some(
+                    (menuItem) =>
+                      menuItem.reg !== undefined && menuItem.reg !== null
+                  ) && (
                     <div className="mt-2 w-[20%]">
-                      <h1 className="flex justify-center mb-3 text-lg">LRG</h1>
-                      {category.menu?.map((menuItem) => (
-                        <div
-                          key={menuItem.id}
-                          className="border-b border-zinc-700 py-2"
-                        >
-                          <div className="flex gap-2 text-base justify-center">
-                            {menuItem.lrg !== undefined && (
-                              <p
-                                style={{
-                                  color:
-                                    menuItem.lrg === "0" || menuItem.lrg === 0
-                                      ? "transparent"
-                                      : "inherit",
-                                }}
-                              >
-                                {typeof menuItem.lrg === "number"
-                                  ? menuItem.lrg.toFixed(2)
-                                  : Number(menuItem.lrg).toFixed(2)}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                      <h3 className="flex justify-center mb-3 text-lg">REG</h3>
+                      {category.menu?.map(
+                        (menuItem) =>
+                          menuItem.reg !== undefined &&
+                          menuItem.reg !== null && (
+                            <div
+                              key={menuItem.id}
+                              className="border-b border-zinc-700 py-2"
+                            >
+                              <div className="flex gap-2 text-base justify-center">
+                                <p>
+                                  {typeof menuItem.reg === "number"
+                                    ? `${
+                                        menuItem.reg < 0.99 ? "+ " : ""
+                                      }${menuItem.reg.toFixed(2)}`
+                                    : `${menuItem.reg}`}
+                                </p>
+                              </div>
+                            </div>
+                          )
+                      )}
                     </div>
                   )}
-
-                  <div className={`mt-2 ${showLarge ? "w-[50%]" : "w-[70%]"}`}>
-                    <h3 className="flex justify-center mb-3 text-lg">
-                      {title.startsWith("Drink") ? "DRINK" : "ITEM"}
-                    </h3>
-                    {category.menu?.map((menuItem) => (
-                      <div
-                        key={menuItem.id}
-                        className="border-b border-zinc-700 py-2"
-                      >
-                        <div className="flex gap-2 text-base justify-center">
-                          <p>{menuItem.item}</p>
-                        </div>
+                  {showLarge &&
+                    category.menu?.some(
+                      (menuItem) =>
+                        menuItem.lrg !== undefined &&
+                        menuItem.lrg !== null &&
+                        menuItem.lrg !== "0"
+                    ) && (
+                      <div className="mt-2 w-[20%]">
+                        <h3 className="flex justify-center mb-3 text-lg">
+                          LRG
+                        </h3>
+                        {category.menu?.map(
+                          (menuItem) =>
+                            menuItem.lrg !== undefined &&
+                            menuItem.lrg !== null &&
+                            menuItem.lrg !== "0" && (
+                              <div
+                                key={menuItem.id}
+                                className="border-b border-zinc-700 py-2"
+                              >
+                                <div className="flex gap-2 text-base justify-center">
+                                  <p>
+                                    {menuItem.lrg === 0 || menuItem.lrg === "0"
+                                      ? "-" // Render a blank space instead of skipping
+                                      : typeof menuItem.lrg === "number"
+                                      ? menuItem.lrg.toFixed(2)
+                                      : Number(menuItem.lrg).toFixed(2)}
+                                  </p>
+                                </div>
+                              </div>
+                            )
+                        )}
                       </div>
-                    ))}
-                  </div>
+                    )}
+                  {category.menu?.some((menuItem) => menuItem.item) && (
+                    <div
+                      className={`mt-2 ${showLarge ? "w-[50%]" : "w-[70%]"}`}
+                    >
+                      <h3 className="flex justify-center mb-3 text-lg">
+                        {title.startsWith("Drink") ? "DRINK" : "ITEM"}
+                      </h3>
+                      {category.menu?.map(
+                        (menuItem) =>
+                          menuItem.item && (
+                            <div
+                              key={menuItem.id}
+                              className="border-b border-zinc-700 py-2"
+                            >
+                              <div className="flex gap-2 text-base justify-center">
+                                <p>{menuItem.item}</p>
+                              </div>
+                            </div>
+                          )
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
