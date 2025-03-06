@@ -18,12 +18,12 @@ export type Drink = {
   item: string;
   image: string;
   alt: string;
-  height: number; // change this later
-  width: number; // change this later
+  height: number;
+  width: number;
   menu: MenuItem[];
 };
 
-type MenuItem = {
+export type MenuItem = {
   id: number;
   item: string;
   reg: number | string;
@@ -37,8 +37,8 @@ export type Breakfast = {
   desc: string;
   image: string;
   alt: string;
-  height: number; // change this later
-  width: number; // change this later
+  height: number;
+  width: number;
   menu?: MenuItem[];
 };
 
@@ -86,6 +86,9 @@ export type ShopifyMetaobjectField = {
     image: {
       url: string;
     };
+  };
+  references?: {
+    edges: ShopifyMetaobjectEdge[];
   };
 };
 
