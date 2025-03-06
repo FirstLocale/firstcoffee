@@ -23,16 +23,26 @@ export default async function ContactPage() {
   };
 
   return (
-    <div className="p-4 text-center">
+    <div className="max-w-screen-lg mx-auto font-cutive text-center px-2 pb-5 sm:px-6 pt-36">
       <h1 className="text-3xl p-5">{getFieldValue(contactInfo, "title")}</h1>
       <p>{getFieldValue(contactInfo, "text")}</p>
       <div className="flex flex-col justify-center p-5">
         {details.map((detail) => (
           <div key={detail.id} className="p-5">
-            <p>{`${getFieldValue(detail, "name")} | ${getFieldValue(
-              detail,
-              "tel"
-            )} | ${getFieldValue(detail, "email")}`}</p>
+            {/* Mobile view: */}
+            <div className="leading-loose sm:hidden">
+              <p>{getFieldValue(detail, 'name')}</p>
+              <p>{getFieldValue(detail, 'tel')}</p>
+              <p>{getFieldValue(detail, 'email')}</p>
+            </div>
+            {/* Larger views: */}
+            <div className="hidden sm:block">
+              <p>{`${getFieldValue(detail, 'name')} | ${getFieldValue(
+                detail,
+                'tel'
+              )} | ${getFieldValue(detail, 'email')}`}
+              </p>
+            </div>
           </div>
         ))}
       </div>

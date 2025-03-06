@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ShopifyMetaobject, ShopifyMetaobjectEdge } from "@/utils/types";
 
 export default async function EventsPage() {
-  const eventsData = await GetInfo("events_info", "dates", true); // Fetching events with dates and resolving image URLs
+  const eventsData = await GetInfo("events_info", "dates", true);
 
   if (!eventsData || eventsData.edges.length === 0) {
     return <div>Could not load Events Information.</div>;
@@ -18,15 +18,26 @@ export default async function EventsPage() {
     const field = metaobject.fields.find((field) => field.key === key);
 
     if (field) {
-      // If resolveImageUrls is true, and the field references an image, return the image URL
       if (resolveImageUrls && field.reference?.image?.url) {
         return field.reference.image.url;
       }
-
-      // Otherwise, return the raw value
       return field.value || "";
     }
     return "";
+  };
+
+  // Date formatting function - placed OUTSIDE the map function
+  const formatDate = (dateString: string): string => {
+    const dateObj = new Date(dateString);
+
+    return new Intl.DateTimeFormat('en-GB', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: false
+    }).format(dateObj);
   };
 
   // Process events with their associated dates
@@ -59,27 +70,59 @@ export default async function EventsPage() {
   });
 
   return (
-    <div className="p-4">
-      {events.map((event) => (
-        <div key={event.id} className="mb-8">
-          <h2 className="text-3xl p-5">{event.title}</h2>
-          <Image
-            className="mx-auto"
-            src={event.image}
-            alt={event.alt}
-            width={event.width}
-            height={event.height}
-          />
-          <p className="text-center mt-4">{event.desc}</p>
-
-          {event.dates.length > 0 && (
-            <div className="mt-4 text-center">
-              {event.dates.map((date) => (
-                <p key={date.id} className="text-sm text-zinc-600">
-                  {`${date.date} | ${date.desc}`}
-                </p>
-              ))}
-            </div>
+    <div className="max-w-screen-lg mx-auto font-cutive px-2 pb-5 sm:px-6 pt-36">
+      {events.map((event, index) => (
+        <div key={event.id} className="flex flex-col md:flex-row items-center gap-8 py-12">
+          {index % 2 !== 0 ? (
+            <>
+              <div className="md:w-1/2 pb-10">
+                <Image
+                  src={event.image}
+                  alt={event.alt}
+                  width={event.width}
+                  height={event.height}
+                />
+              </div>
+              <div className="md:w-1/2">
+                <h2 className="text-3xl mb-4">{event.title}</h2>
+                <p>{event.desc}</p>
+                
+                {event.dates.length > 0 && (
+                  <div className="mt-4">
+                    {event.dates.map((date) => (
+                      <p key={date.id} className="text-sm text-zinc-500">
+                        {`${formatDate(date.date)} | ${date.desc}`}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="md:w-1/2 order-2 md:order-1">
+                <h2 className="text-3xl mb-4">{event.title}</h2>
+                <p>{event.desc}</p>
+                
+                {event.dates.length > 0 && (
+                  <div className="mt-4">
+                    {event.dates.map((date) => (
+                      <p key={date.id} className="text-sm text-zinc-500">
+                        {`${formatDate(date.date)} | ${date.desc}`}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="md:w-1/2 order-1 md:order-2 pb-10">
+                <Image
+                  src={event.image}
+                  alt={event.alt}
+                  width={event.width}
+                  height={event.height}
+                />
+              </div>
+            </>
           )}
         </div>
       ))}
