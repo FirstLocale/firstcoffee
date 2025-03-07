@@ -65,12 +65,12 @@ export default function Menu({
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <ExpandMoreIcon sx={{ color:'#f97316' }} />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <div className="w-full md:w-[100%] bg-zinc-800 text-white rounded-2xl p-6 h-auto">
+          <div className="w-full md:w-[100%] bg-#241f21 border-2 border-orange-500 text-white font-cutive rounded-2xl p-6 h-auto">
             {data.map((category) => (
               <div key={category.id} className="mb-6">
                 <h1 className="flex justify-center text-2xl mb-3">
