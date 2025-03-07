@@ -53,7 +53,7 @@ export default async function Home() {
         <div className="relative pb-0 sm:pb-10">
           <div className="flex justify-end absolute z-0 w-full pr-2 sm:pr-0">
             <Image
-              className="w-10 sm:w-[100px] transform -rotate-[15deg]"
+              className="w-10 sm:w-[100px] transform -rotate-[15deg] rounded-md"
               src='/straightOuttaClopton.webp'
               alt="straight outta clopton CD sticker image"
               width={100}
@@ -61,7 +61,7 @@ export default async function Home() {
             />
           </div>
           <Image
-            className="w-full"
+            className="w-full rounded-md"
             src={home.image}
             alt={home.alt}
             width={home.width}
@@ -89,7 +89,7 @@ export default async function Home() {
             // Odd indexes (1, 3, 5...) - Image on left, text on right
             <>
               <div className="md:w-1/2 pb-10">
-                <Image
+                <Image className="rounded-md"
                   src={home.image}
                   alt={home.alt}
                   width={home.width}
@@ -113,7 +113,7 @@ export default async function Home() {
                 <p>{home.text}</p>
               </div>
               <div className="md:w-1/2 order-1 md:order-2 pb-10">
-                <Image
+                <Image className="rounded-md"
                   src={home.image}
                   alt={home.alt}
                   width={home.width}

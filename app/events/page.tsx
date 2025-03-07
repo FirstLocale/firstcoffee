@@ -76,7 +76,7 @@ export default async function EventsPage() {
           {index % 2 !== 0 ? (
             <>
               <div className="md:w-1/2 pb-10">
-                <Image
+                <Image className="rounded-md"
                   src={event.image}
                   alt={event.alt}
                   width={event.width}
@@ -115,7 +115,7 @@ export default async function EventsPage() {
                 )}
               </div>
               <div className="md:w-1/2 order-1 md:order-2 pb-10">
-                <Image
+                <Image className="rounded-md"
                   src={event.image}
                   alt={event.alt}
                   width={event.width}
