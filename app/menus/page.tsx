@@ -13,21 +13,28 @@ export default async function MenuPage() {
 
   return (
     <div className="max-w-screen-lg mx-auto font-cutive text-center px-2 pb-5 sm:px-6 pt-36">
-      <Menu
-        title="Drink."
-        headerImage="/variousDrinks.jpg"
-        headerAlt="Cup of coffee"
-        data={drinkData}
-        showLarge={true}
-      />
+      <div className="flex flex-col sm:flex-row">
+        <div className="p-3">
+          <Menu
+            title="Drink."
+            headerImage="/variousDrinks.jpg"
+            headerAlt="Cup of coffee"
+            data={drinkData}
+            showLarge={true}
+          />
+        </div>
 
-      <Menu
-        title="Breakfast."
-        headerImage="/breakfasts.avif"
-        headerAlt="Breakfast"
-        data={breakfastData}
-        showLarge={false}
-      />
+        <div className="p-3">
+          <Menu
+            title="Breakfast."
+            headerImage="/breakfasts.avif"
+            headerAlt="Breakfast"
+            data={breakfastData}
+            showLarge={false}
+          />
+        </div>
+      </div>
+      
     </div>
   );
 }
