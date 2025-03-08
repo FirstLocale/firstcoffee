@@ -17,8 +17,8 @@ services:
 
     environment:
       - NODE_ENV=development # Sets environment to development mode
-      # - SHOPIFY_STOREFRONT_ACCESS_TOKEN=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}
-      # - SHOPIFY_STORE_DOMAIN=${SHOPIFY_STORE_DOMAIN}
+      - SHOPIFY_STOREFRONT_ACCESS_TOKEN=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}
+      - SHOPIFY_STORE_DOMAIN=${SHOPIFY_STORE_DOMAIN}
       # Windows-specific polling for file changes
       #- WATCHPACK_POLLING=true
 

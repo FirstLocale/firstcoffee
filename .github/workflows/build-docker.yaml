@@ -43,6 +43,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: export environment variables
+        run: |
+          export ${ secrets.SHOPIFY_STORE_DOMAIN }
+          export ${ secrets.SHOPIFY_STOREFONT_ACCESS_TOKEN }
+
       - name: Start Selenium + Build service
         run: docker compose -f docker-compose.test.yml up -d
 
