@@ -14,12 +14,12 @@ interface GalleryItem {
 
 interface GallerySliderProps {
     galleryItems: GalleryItem[];
-    containerHeight?: string; // Optional prop to control container height
+    containerHeight?: string;
 }
 
 export default function GallerySlider({ 
     galleryItems,
-    containerHeight = '20rem' // Default height if not specified
+    containerHeight = '20rem'
 }: GallerySliderProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -44,7 +44,7 @@ export default function GallerySlider({
     return (
         <div>
             <div 
-                className="overflow-hidden rounded-md relative" 
+                className="overflow-hidden rounded-md relative" // Position is now explicitly set to relative
                 style={{ height: containerHeight }}
             >
                 <AnimatePresence mode="wait">
@@ -54,14 +54,15 @@ export default function GallerySlider({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="w-full h-full"
+                        className="w-full h-full relative" // Adding position relative here too
                     >
                         <Image
-                            className="w-full h-full object-cover"
                             src={currentItem.image}
                             alt={currentItem.alt || "Gallery image"}
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Added sizes prop
                             priority={currentImageIndex === 0}
+                            className="object-cover" // Moved from outer div to Image
                         />
                     </motion.div>
                 </AnimatePresence>

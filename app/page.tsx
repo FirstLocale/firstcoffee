@@ -78,7 +78,7 @@ export default async function Home() {
                   className="w-10 sm:w-[100px] transform -rotate-[15deg] rounded-md"
                   src="/straightOuttaClopton.webp"
                   alt="straight outta clopton CD sticker image"
-                  width={100}
+                  width={70}
                   height={100}
                 />
               </div>

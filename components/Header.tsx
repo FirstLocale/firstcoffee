@@ -52,7 +52,7 @@ const Header: React.FC = () => {
         <MobNav />
         
         {/* Nav links: */}
-          <div className="bg-[#241f21] font-cutive w-[50%] gap-6 top-14 right-0 hidden sm:flex absolute z-30">
+          <div className="bg-[#241f21] font-cutive w-[50%] gap-6 top-14 right-0 hidden md:flex absolute z-30">
             <Link href="/menus" aria-label="Menus" className="hover:underline hover:decoration-orange-500">
               <strong className="font-normal">Menus.</strong>
             </Link>
