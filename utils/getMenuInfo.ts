@@ -4,7 +4,7 @@ export async function GetMenuInfo(
   resolveImageUrls: boolean = false
 ): Promise<{ drinkData: Drink[]; breakfastData: Breakfast[] } | null> {
   try {
-    console.log("Fetching menu data from Shopify...");
+    //console.log("Fetching menu data from Shopify...");
 
     const response = await fetch(
       `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2024-01/graphql.json`,
@@ -82,7 +82,7 @@ export async function GetMenuInfo(
     }
 
     const data = await response.json();
-    console.log("Shopify API Response for menu:", data);
+    //console.log("Shopify API Response for menu:", data);
 
     // Extract the metaobjects
     const metaobjects = data?.data?.metaobjects?.edges || [];

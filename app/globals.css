@@ -15,17 +15,39 @@
 }
 
 @keyframes noise {
-  0% { transform: translate(0,0); }
-  10% { transform: translate(-5%,-5%); }
-  20% { transform: translate(-10%,5%); }
-  30% { transform: translate(5%,-10%); }
-  40% { transform: translate(-5%,15%); }
-  50% { transform: translate(-10%,5%); }
-  60% { transform: translate(15%,0); }
-  70% { transform: translate(0,10%); }
-  80% { transform: translate(-15%,0); }
-  90% { transform: translate(10%,5%); }
-  100% { transform: translate(5%,0); }
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -5%);
+  }
+  20% {
+    transform: translate(-10%, 5%);
+  }
+  30% {
+    transform: translate(5%, -10%);
+  }
+  40% {
+    transform: translate(-5%, 15%);
+  }
+  50% {
+    transform: translate(-10%, 5%);
+  }
+  60% {
+    transform: translate(15%, 0);
+  }
+  70% {
+    transform: translate(0, 10%);
+  }
+  80% {
+    transform: translate(-15%, 0);
+  }
+  90% {
+    transform: translate(10%, 5%);
+  }
+  100% {
+    transform: translate(5%, 0);
+  }
 }
 
 .grain-background::after {
@@ -41,29 +63,27 @@
   z-index: 9999; /* Make sure it's above everything */
 }
 
-
-
-
-html {
-  scroll-behavior: smooth;
-}
-
-
 @font-face {
-  font-family: 'Cutive';
-  src: url('/fonts/CutiveRegular.ttf') format('truetype');
+  font-family: "Cutive";
+  src: url("/fonts/CutiveRegular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 /*! Targets menu cards titles: */
 .MuiCardHeader-title {
-  font-family: 'Cutive', serif
+  font-family: "Cutive", serif;
 }
 /*! Targets menu cards outter background: */
 .MuiPaper-root.MuiCard-root {
   background-color: #241f21;
-  color: white
+  color: white;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.6) transparent;
 }
 
 body {
@@ -73,5 +93,33 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.6) transparent !important;
 }
 
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(204, 204, 204, 0.7);
+  border-radius: 4px;
+  border: none;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(240, 240, 240, 0.8);
+}
+
+body::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
