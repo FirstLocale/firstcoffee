@@ -12,13 +12,11 @@ services:
 
     command: npm run dev # Overrides default CMD, runs development server
 
-    # env_file:
-    #   - .env.local
+    env_file:
+      - .env.local
 
     environment:
       - NODE_ENV=development # Sets environment to development mode
-      - SHOPIFY_STOREFRONT_ACCESS_TOKEN=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}
-      - SHOPIFY_STORE_DOMAIN=${SHOPIFY_STORE_DOMAIN}
       # Windows-specific polling for file changes
       #- WATCHPACK_POLLING=true
 

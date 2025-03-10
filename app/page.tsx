@@ -1,6 +1,7 @@
 import { GetInfo } from "@/utils/getInfo";
 import Image from "next/image";
 import { ShopifyMetaobject } from "@/utils/types";
+import GallerySlider from "@/components/GalleryEffect";
 
 export default async function Home() {
   const homeData = await GetInfo("home_info", "gallery", true); // No second parameter, third parameter is true
@@ -63,6 +64,8 @@ export default async function Home() {
       };
     }) || [];
 
+    
+
   return (
     <div className="max-w-screen-lg mx-auto font-cutive px-2 pb-5 sm:px-6 pt-36">
       {homes.map((home, index) => (
@@ -79,23 +82,11 @@ export default async function Home() {
                   height={100}
                 />
               </div>
+              {/* Gallery section: */}
               {galleryItems.length > 0 && (
-                <div className="py-16">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {galleryItems.map((item) => (
-                      <div key={item.id} className="overflow-hidden rounded-md">
-                        <Image
-                          className="w-full h-auto object-cover"
-                          src={item.image}
-                          alt={item.alt}
-                          width={item.width}
-                          height={item.height}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <GallerySlider galleryItems={galleryItems} />
               )}
+
               <div className="flex flex-col justify-end absolute left-2 w-[80%] h-[70%] top-11 sm:left-8 max-w-xl">
                 <h1 className="mb-2 text-xs sm:text-3xl">
                   <span className="box-decoration-clone bg-[#241f21] text-white pt-2 px-1 leading-8">
