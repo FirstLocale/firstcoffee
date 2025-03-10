@@ -72,8 +72,8 @@ export default async function Home() {
         <div key={home.id}>
           {index === 0 ? (
             //! First section with unique styling - highlighted text over image
-            <div className="relative pb-0 sm:pb-10">
-              <div className="flex justify-end absolute z-0 w-full pr-2 sm:pr-0">
+            <div className="relative pb-4">
+              <div className="flex justify-end absolute z-10 w-full pr-2 sm:pr-0">
                 <Image
                   className="w-10 sm:w-[100px] transform -rotate-[15deg] rounded-md"
                   src="/straightOuttaClopton.webp"
