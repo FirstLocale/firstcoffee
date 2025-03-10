@@ -10,8 +10,8 @@ export async function GetInfo(
   resolveImageUrls: boolean = false // Default false
 ): Promise<ShopifyMetaobjectConnection | null> {
   try {
-    console.log("Fetching data from Shopify...");
-    console.log("Store Domain:", process.env.SHOPIFY_STORE_DOMAIN);
+    //console.log("Fetching data from Shopify...");
+    //console.log("Store Domain:", process.env.SHOPIFY_STORE_DOMAIN);
 
     const response = await fetch(
       `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2024-01/graphql.json`,
@@ -91,14 +91,14 @@ export async function GetInfo(
       }
     );
 
-    console.log("Response status:", response.status);
+    //console.log("Response status:", response.status);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log("Shopify API Response:", data);
+    //console.log("Shopify API Response:", data);
 
     const metaobjects = data?.data?.metaobjects || null;
 
