@@ -24,7 +24,7 @@ export default async function ContactPage() {
 
   return (
     <div className="max-w-screen-lg mx-auto font-cutive text-center px-2 pb-5 sm:px-6 pt-36">
-      <h1 className="text-3xl p-5">{getFieldValue(contactInfo, "title")}</h1>
+      <h1 className="text-3xl pb-5">{getFieldValue(contactInfo, "title")}</h1>
       <p>{getFieldValue(contactInfo, "text")}</p>
       <div className="flex flex-col justify-center p-5">
         {details.map((detail) => (

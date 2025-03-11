@@ -72,10 +72,10 @@ export default async function Home() {
         <div key={home.id}>
           {index === 0 ? (
             //! First section with unique styling - highlighted text over image
-            <div className="relative pb-4">
-              <div className="flex justify-end absolute z-10 w-full pr-2 sm:pr-0">
+            <div className="relative">
+              <div className="flex justify-end absolute z-10 w-full pr-1 sm:pr-0">
                 <Image
-                  className="w-10 sm:w-[100px] transform -rotate-[15deg] rounded-md"
+                  className="w-11 sm:w-[100px] transform -rotate-[15deg] rounded-md"
                   src="/straightOuttaClopton.webp"
                   alt="straight outta clopton CD sticker image"
                   width={70}
@@ -102,7 +102,7 @@ export default async function Home() {
             </div>
           ) : (
             //! For all other sections, alternate layout based on odd/even index
-            <div className="flex flex-col md:flex-row items-center sm:gap-8 py-12">
+            <div className="flex flex-col md:flex-row items-center sm:gap-8 pt-8">
               {/* If index is odd, image on left; if even, image on right */}
               {index % 2 !== 0 ? (
                 // Odd indexes (1, 3, 5...) - Image on left, text on right

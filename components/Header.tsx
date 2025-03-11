@@ -6,11 +6,11 @@ import MobNav from "./MobNavBar";
 
 const Header: React.FC = () => {
   return (
-    <header className="fixed w-full z-10">
+    <header className="fixed w-full z-20">
       {/* header bottom border */}
       <div className="w-full py-11 bg-[#241f21] absolute top-0 border-b-2 border-orange-500"></div>
 
-      <div className="max-w-screen-lg mx-auto flex items-center justify-between px-6 py-4 relative">
+      <div className="w-full max-w-screen-lg mx-auto flex items-center justify-between px-4 sm:px-6 py-4 relative">
         {/* First logo & containers: */}
         <div className="flex relative pt-3 w-40 gap-2">
             <div className="relative inline-block z-40">

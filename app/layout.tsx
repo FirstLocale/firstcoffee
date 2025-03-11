@@ -21,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cutiveFont.variable}>
-      <body className={`antialiased ${cutiveFont.variable}`} aria-live="polite">
+      <body className=
+      {`antialiased ${cutiveFont.variable}`} 
+      aria-live="polite">
         <Header />
         {children}
       </body>

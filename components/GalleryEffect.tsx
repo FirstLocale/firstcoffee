@@ -14,15 +14,12 @@ interface GalleryItem {
 
 interface GallerySliderProps {
     galleryItems: GalleryItem[];
-    containerHeight?: string;
 }
 
-export default function GallerySlider({ 
-    galleryItems,
-    containerHeight = '20rem'
-}: GallerySliderProps) {
+export default function GallerySlider({ galleryItems }: GallerySliderProps) {
+    
+    //! Gallery image rotation code block:
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
     useEffect(() => {
         if (galleryItems.length > 0) {
             const interval = setInterval(() => {
@@ -35,16 +32,34 @@ export default function GallerySlider({
         }
     }, [galleryItems.length]);
 
+    
+
+    //! Vary Gallery container height code block:
+    const [containerHeight, setContainerHeight] = useState('17rem');
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 640) {
+                // Mobile view (sm):
+                setContainerHeight('10rem');
+            } else {
+                // Bigger than mobile view:
+                setContainerHeight('17rem');
+            }
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     if (galleryItems.length === 0) {
         return null;
     }
-
     const currentItem = galleryItems[currentImageIndex];
 
     return (
         <div>
             <div 
-                className="overflow-hidden rounded-md relative" // Position is now explicitly set to relative
+                className="overflow-hidden rounded-md relative" 
                 style={{ height: containerHeight }}
             >
                 <AnimatePresence mode="wait">
@@ -54,15 +69,15 @@ export default function GallerySlider({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="w-full h-full relative" // Adding position relative here too
+                        className="w-full h-full relative" 
                     >
                         <Image
                             src={currentItem.image}
                             alt={currentItem.alt || "Gallery image"}
                             fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Added sizes prop
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             priority={currentImageIndex === 0}
-                            className="object-cover" // Moved from outer div to Image
+                            className="object-cover"
                         />
                     </motion.div>
                 </AnimatePresence>
