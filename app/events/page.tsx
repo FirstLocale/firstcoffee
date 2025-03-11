@@ -72,7 +72,7 @@ export default async function EventsPage() {
   return (
     <div className="max-w-screen-lg mx-auto font-cutive px-2 pb-5 sm:px-6 pt-36">
       {events.map((event, index) => (
-        <div key={event.id} className="flex flex-col md:flex-row items-center gap-8 py-12">
+        <div key={event.id} className="flex flex-col pb-6 md:flex-row items-center gap-8">
           {index % 2 !== 0 ? (
             <>
               <div className="md:w-1/2 pb-10">

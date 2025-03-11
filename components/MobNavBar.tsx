@@ -49,9 +49,9 @@ const MobNav: React.FC = () => {
     };
 
     return (
-        <div className="md:hidden h-24 relative z-50">
+        <div className="md:hidden flex items-center justify-end relative z-50">
             {/* Hamburger Button */}
-            <div className="relative z-50">
+            <div className="relative z-50 -top-5">
                 <Hamburger 
                 toggled={isOpen} 
                 toggle={setIsOpen} 
