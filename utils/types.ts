@@ -31,7 +31,7 @@ export type MenuItem = {
   opts?: string;
 };
 
-export type Breakfast = {
+export type Food = {
   id: number;
   item: string;
   desc: string;

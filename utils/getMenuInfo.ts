@@ -1,8 +1,11 @@
-import { Breakfast, Drink, MenuItem, ShopifyMetaobjectEdge } from "./types";
+import { Drink, Food, MenuItem, ShopifyMetaobjectEdge } from "./types";
 
-export async function GetMenuInfo(
-  resolveImageUrls: boolean = false
-): Promise<{ drinkData: Drink[]; breakfastData: Breakfast[] } | null> {
+export async function GetMenuInfo(resolveImageUrls: boolean = false): Promise<{
+  drinkData: Drink[];
+  breakfastData: Food[];
+  lunchData: Food[];
+  pizzaData: Food[];
+} | null> {
   try {
     //console.log("Fetching menu data from Shopify...");
 
@@ -88,164 +91,136 @@ export async function GetMenuInfo(
     const metaobjects = data?.data?.metaobjects?.edges || [];
 
     let drinkData: Drink[] = [];
-    let breakfastData: Breakfast[] = [];
+    let breakfastData: Food[] = [];
+    let lunchData: Food[] = [];
+    let pizzaData: Food[] = [];
 
     // Process menu_info metaobject to extract drinks and breakfasts
     for (const edge of metaobjects) {
       const menuInfoNode = edge.node;
 
-      // Find drinks and breakfasts fields
+      // Find drinks, breakfasts, lunches and pizzas fields
       for (const field of menuInfoNode.fields) {
         if (field.key === "drinks" && field.references) {
-          drinkData = processDrinks(field.references.edges, resolveImageUrls);
-        } else if (field.key === "breakfasts" && field.references) {
-          breakfastData = processBreakfasts(
+          drinkData = processMenuData<Drink>(
             field.references.edges,
-            resolveImageUrls
+            resolveImageUrls,
+            "drink_menu"
+          );
+        } else if (field.key === "breakfasts" && field.references) {
+          breakfastData = processMenuData<Food>(
+            field.references.edges,
+            resolveImageUrls,
+            "breakfast_menu"
+          );
+        } else if (field.key === "lunch" && field.references) {
+          lunchData = processMenuData<Food>(
+            field.references.edges,
+            resolveImageUrls,
+            "lunches_menu"
+          );
+        } else if (field.key === "pizza" && field.references) {
+          pizzaData = processMenuData<Food>(
+            field.references.edges,
+            resolveImageUrls,
+            "pizzas_menu"
           );
         }
       }
     }
 
-    return { drinkData, breakfastData };
+    return { drinkData, breakfastData, lunchData, pizzaData };
   } catch (error) {
     console.error("Error fetching menu data:", error);
     return null;
   }
 }
 
-// Process drinks data
-function processDrinks(
-  drinksEdges: ShopifyMetaobjectEdge[],
-  resolveImageUrls: boolean
-): Drink[] {
-  return drinksEdges.map((drinkEdge, index) => {
-    const drinkNode = drinkEdge.node;
+function processMenuData<T extends Drink | Food>(
+  edges: ShopifyMetaobjectEdge[],
+  resolveImageUrls: boolean,
+  menuKey: string
+): T[] {
+  return edges.map((edge, index) => {
+    const node = edge.node;
     let menu: MenuItem[] = [];
     let image = "";
     let alt = "";
     let height = 0;
     let width = 0;
     let item = "";
+    let desc = ""; // Only used for food items
 
     // Process each field
-    for (const field of drinkNode.fields) {
-      if (field.key === "item") {
-        item = field.value;
-      } else if (
-        field.key === "img" &&
-        resolveImageUrls &&
-        field.reference?.image?.url
-      ) {
-        image = field.reference.image.url;
-      } else if (field.key === "alt") {
-        alt = field.value;
-      } else if (field.key === "height") {
-        height = parseInt(field.value || "0");
-      } else if (field.key === "width") {
-        width = parseInt(field.value || "0");
-      } else if (field.key === "drink_menu" && field.references) {
-        // Process drink menu items
-        menu = field.references.edges.map((menuEdge, menuIndex) => {
-          const menuNode = menuEdge.node;
-          const menuItem: MenuItem = { id: menuIndex + 1, item: "", reg: "" };
-
-          for (const menuField of menuNode.fields) {
-            if (menuField.key === "item") {
-              menuItem.item = menuField.value;
-            } else if (menuField.key === "opts") {
-              menuItem.opts = menuField.value;
-            } else if (menuField.key === "reg") {
-              menuItem.reg = isNaN(parseFloat(menuField.value))
-                ? menuField.value
-                : parseFloat(menuField.value);
-            } else if (menuField.key === "lrg") {
-              menuItem.lrg = isNaN(parseFloat(menuField.value))
-                ? menuField.value
-                : parseFloat(menuField.value);
-            }
+    for (const field of node.fields) {
+      switch (field.key) {
+        case "item":
+          item = field.value;
+          break;
+        case "desc":
+          desc = field.value;
+          break;
+        case "img":
+          if (resolveImageUrls && field.reference?.image?.url) {
+            image = field.reference.image.url;
           }
+          break;
+        case "alt":
+          alt = field.value;
+          break;
+        case "height":
+          height = parseInt(field.value || "0");
+          break;
+        case "width":
+          width = parseInt(field.value || "0");
+          break;
+        default:
+          if (field.key === menuKey && field.references) {
+            // Process menu items
+            menu = field.references.edges.map((menuEdge, menuIndex) => {
+              const menuNode = menuEdge.node;
+              const menuItem: MenuItem = {
+                id: menuIndex + 1,
+                item: "",
+                reg: "",
+              };
 
-          return menuItem;
-        });
+              for (const menuField of menuNode.fields) {
+                switch (menuField.key) {
+                  case "item":
+                    menuItem.item = menuField.value;
+                    break;
+                  case "opts":
+                    menuItem.opts = menuField.value;
+                    break;
+                  case "reg":
+                    menuItem.reg = isNaN(parseFloat(menuField.value))
+                      ? menuField.value
+                      : parseFloat(menuField.value);
+                    break;
+                  case "lrg":
+                    menuItem.lrg = isNaN(parseFloat(menuField.value))
+                      ? menuField.value
+                      : parseFloat(menuField.value);
+                    break;
+                }
+              }
+
+              return menuItem;
+            });
+          }
       }
     }
 
     return {
       id: index + 1,
       item,
+      ...(desc ? { desc } : {}), // Only include desc if it exists
       image,
       alt,
       height,
       width,
       menu,
-    };
-  });
-}
-
-// Process breakfasts data
-function processBreakfasts(
-  breakfastsEdges: ShopifyMetaobjectEdge[],
-  resolveImageUrls: boolean
-): Breakfast[] {
-  return breakfastsEdges.map((breakfastEdge, index) => {
-    const breakfastNode = breakfastEdge.node;
-    let menu: MenuItem[] = [];
-    let image = "";
-    let alt = "";
-    let height = 0;
-    let width = 0;
-    let item = "";
-    let desc = "";
-
-    // Process each field
-    for (const field of breakfastNode.fields) {
-      if (field.key === "item") {
-        item = field.value;
-      } else if (field.key === "desc") {
-        desc = field.value;
-      } else if (
-        field.key === "img" &&
-        resolveImageUrls &&
-        field.reference?.image?.url
-      ) {
-        image = field.reference.image.url;
-      } else if (field.key === "alt") {
-        alt = field.value;
-      } else if (field.key === "height") {
-        height = parseInt(field.value || "0");
-      } else if (field.key === "width") {
-        width = parseInt(field.value || "0");
-      } else if (field.key === "breakfast_menu" && field.references) {
-        // Process breakfast menu items
-        menu = field.references.edges.map((menuEdge, menuIndex) => {
-          const menuNode = menuEdge.node;
-          const menuItem: MenuItem = { id: menuIndex + 1, item: "", reg: "" };
-
-          for (const menuField of menuNode.fields) {
-            if (menuField.key === "item") {
-              menuItem.item = menuField.value;
-            } else if (menuField.key === "reg") {
-              menuItem.reg = isNaN(parseFloat(menuField.value))
-                ? menuField.value
-                : parseFloat(menuField.value);
-            }
-          }
-
-          return menuItem;
-        });
-      }
-    }
-
-    return {
-      id: index + 1,
-      item,
-      desc,
-      image,
-      alt,
-      height,
-      width,
-      menu,
-    };
+    } as T;
   });
 }

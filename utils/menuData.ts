@@ -1,4 +1,4 @@
-import { Drink, Breakfast } from "./types";
+import { Drink, Food } from "./types";
 
 // -------- COFFEE ---------
 
@@ -152,7 +152,7 @@ export const drinkData: Drink[] = [
 
 // -------- BREAKFAST ---------
 
-export const breakfastData: Breakfast[] = [
+export const breakfastData: Food[] = [
   {
     id: 1,
     item: "BYO Breakfast Baps.",
