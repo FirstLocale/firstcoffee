@@ -83,9 +83,9 @@ export default async function EventsPage() {
                   height={event.height}
                 />
               </div>
-              <div className="md:w-1/2">
-                <h2 className="text-3xl mb-4">{event.title}</h2>
-                <p>{event.desc}</p>
+              <div className="px-5 md:w-1/2">
+                <h2 className="text-xl font-bold mb-4">{event.title}</h2>
+                <p className="text-sm">{event.desc}</p>
                 
                 {event.dates.length > 0 && (
                   <div className="mt-4">
@@ -100,9 +100,9 @@ export default async function EventsPage() {
             </>
           ) : (
             <>
-              <div className="md:w-1/2 order-2 md:order-1">
-                <h2 className="text-3xl mb-4">{event.title}</h2>
-                <p>{event.desc}</p>
+              <div className="px-5 md:w-1/2 order-2 md:order-1">
+                <h2 className="text-xl font-bold mb-4">{event.title}</h2>
+                <p className="text-sm">{event.desc}</p>
                 
                 {event.dates.length > 0 && (
                   <div className="mt-4">

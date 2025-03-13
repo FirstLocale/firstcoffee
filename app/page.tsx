@@ -87,14 +87,14 @@ export default async function Home() {
                 <GallerySlider galleryItems={galleryItems} />
               )}
 
-              <div className="flex flex-col justify-end absolute left-2 w-[80%] h-[70%] top-11 sm:left-8 max-w-xl">
-                <h1 className="mb-2 text-xs sm:text-3xl">
-                  <span className="box-decoration-clone bg-[#241f21] text-white pt-2 px-1 leading-8">
+              <div className="flex flex-col justify-end absolute left-2 w-[80%] h-[70%] top-20 sm:left-2 max-w-xl">
+                <h1 className="mb-2 text-xl font-bold">
+                  <span className="text-white leading-8">
                     {String(home.title).toUpperCase()}
                   </span>
                 </h1>
-                <p className="text-[0.6rem] sm:text-lg">
-                  <span className="box-decoration-clone bg-[#241f21] bg-opacity-90 text-white pt-1 px-1 sm:leading-7">
+                <p className="text-sm">
+                  <span className="text-white">
                     {home.text}
                   </span>
                 </p>
@@ -116,21 +116,21 @@ export default async function Home() {
                       height={home.height}
                     />
                   </div>
-                  <div className="md:w-1/2">
-                    <h1 className="text-3xl mb-4">
+                  <div className="px-5 md:w-1/2">
+                    <h1 className="text-xl font-bold mb-4">
                       {String(home.title).toUpperCase()}
                     </h1>
-                    <p>{home.text}</p>
+                    <p className="text-sm">{home.text}</p>
                   </div>
                 </>
               ) : (
                 // Even indexes (2, 4, 6...) - Text on left, image on right
                 <>
-                  <div className="md:w-1/2 order-2 md:order-1">
-                    <h1 className="text-3xl mb-4">
+                  <div className="px-5 md:w-1/2 order-2 md:order-1">
+                    <h1 className="text-xl font-bold mb-4">
                       {String(home.title).toUpperCase()}
                     </h1>
-                    <p>{home.text}</p>
+                    <p className="text-sm">{home.text}</p>
                   </div>
                   <div className="md:w-1/2 order-1 md:order-2 pb-10">
                     <Image
