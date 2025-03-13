@@ -10,13 +10,13 @@ import Collapse from "@mui/material/Collapse";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Image from "next/image";
-import { Drink, Breakfast } from "../utils/types";
+import { Drink, Food } from "../utils/types";
 
 type MenuProps = {
   title: string;
   headerImage: string;
   headerAlt: string;
-  data: Drink[] | Breakfast[];
+  data: Drink[] | Food[];
   showLarge?: boolean;
 };
 
@@ -65,7 +65,7 @@ export default function Menu({
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon sx={{ color:'#f97316' }} />
+          <ExpandMoreIcon sx={{ color: "#f97316" }} />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -97,6 +97,28 @@ export default function Menu({
                   />
                 )}
                 <div className="flex gap-6">
+                  {category.menu?.some((menuItem) => menuItem.item) && (
+                    <div
+                      className={`mt-2 ${showLarge ? "w-[50%]" : "w-[70%]"}`}
+                    >
+                      <h3 className="flex justify-center mb-3 text-lg">
+                        {title.startsWith("Drink") ? "DRINK" : "ITEM"}
+                      </h3>
+                      {category.menu?.map(
+                        (menuItem) =>
+                          menuItem.item && (
+                            <div
+                              key={menuItem.id}
+                              className="border-b border-zinc-700 py-2"
+                            >
+                              <div className="flex gap-2 text-base justify-center">
+                                <p>{menuItem.item}</p>
+                              </div>
+                            </div>
+                          )
+                      )}
+                    </div>
+                  )}
                   {category.menu?.some(
                     (menuItem) =>
                       menuItem.reg !== undefined && menuItem.reg !== null
@@ -159,28 +181,6 @@ export default function Menu({
                         )}
                       </div>
                     )}
-                  {category.menu?.some((menuItem) => menuItem.item) && (
-                    <div
-                      className={`mt-2 ${showLarge ? "w-[50%]" : "w-[70%]"}`}
-                    >
-                      <h3 className="flex justify-center mb-3 text-lg">
-                        {title.startsWith("Drink") ? "DRINK" : "ITEM"}
-                      </h3>
-                      {category.menu?.map(
-                        (menuItem) =>
-                          menuItem.item && (
-                            <div
-                              key={menuItem.id}
-                              className="border-b border-zinc-700 py-2"
-                            >
-                              <div className="flex gap-2 text-base justify-center">
-                                <p>{menuItem.item}</p>
-                              </div>
-                            </div>
-                          )
-                      )}
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
