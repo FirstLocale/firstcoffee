@@ -41,8 +41,8 @@ export default async function AboutPage() {
 
   return (
     <div className="max-w-screen-lg mx-auto font-cutive text-center px-2 pb-5 sm:px-6 pt-36">
-      <h1 className="text-3xl pb-5">{getFieldValue(aboutInfo, "title")}</h1>
-      <p>{getFieldValue(aboutInfo, "desc")}</p>
+      <h1 className="text-xl font-bold pb-5">{getFieldValue(aboutInfo, "title")}</h1>
+      <p className="text-sm">{getFieldValue(aboutInfo, "desc")}</p>
       <div className="flex flex-col md:flex-row gap-6 p-5 justify-center">
         {staff.map((member) => (
           <div key={member.id}>
@@ -53,7 +53,7 @@ export default async function AboutPage() {
               width={parseInt(getFieldValue(member, "width"))}
               height={parseInt(getFieldValue(member, "height"))}
             />
-            <h3 className="text-2xl">{getFieldValue(member, "name")}</h3>
+            <h3 className="text-xl">{getFieldValue(member, "name")}</h3>
             <p className="text-sm text-zinc-500 mt-1">
               {getFieldValue(member, "rank")}
             </p>

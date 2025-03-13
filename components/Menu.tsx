@@ -50,7 +50,8 @@ export default function Menu({
   };
 
   return (
-    <Card sx={{ maxWidth: 500 }}>
+    
+      <Card sx={{ maxWidth: 500 }}>
       <CardHeader title={title} />
       <CardMedia
         component="img"
@@ -70,14 +71,14 @@ export default function Menu({
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <div className="w-full md:w-[100%] bg-#241f21 border-2 border-orange-500 text-white font-cutive rounded-2xl p-6 h-auto">
+          <div className="w-full md:w-[100%] bg-#241f21 border-2 border-orange-500 text-white font-cutive rounded-2xl px-6 pt-6 h-auto">
             {data.map((category) => (
               <div key={category.id} className="mb-6">
-                <h1 className="flex justify-center text-2xl mb-3">
+                <h1 className="flex justify-center text-xl mb-3">
                   {category.item}
                 </h1>
                 {"desc" in category && category.desc && (
-                  <p className="text-sm text-zinc-400 mt-1">{category.desc}</p>
+                  <p className="text-sm text-zinc-400 pb-4 sm:leading-normal leading-relaxed sm:tracking-normal tracking-wide">{category.desc}</p>
                 )}
                 {headerImage.endsWith("avif") ? (
                   <Image
@@ -96,12 +97,12 @@ export default function Menu({
                     width={category.width}
                   />
                 )}
-                <div className="flex gap-6">
+                <div className="flex gap-6 py-4">
                   {category.menu?.some((menuItem) => menuItem.item) && (
                     <div
                       className={`mt-2 ${showLarge ? "w-[50%]" : "w-[70%]"}`}
                     >
-                      <h3 className="flex justify-center mb-3 text-lg">
+                      <h3 className="flex justify-center mb-3 text-md">
                         {title.startsWith("Drink") ? "DRINK" : "ITEM"}
                       </h3>
                       {category.menu?.map(
@@ -112,7 +113,7 @@ export default function Menu({
                               className="border-b border-zinc-700 py-2"
                             >
                               <div className="flex gap-2 text-base justify-center">
-                                <p>{menuItem.item}</p>
+                                <p className="text-sm">{menuItem.item}</p>
                               </div>
                             </div>
                           )
@@ -124,7 +125,7 @@ export default function Menu({
                       menuItem.reg !== undefined && menuItem.reg !== null
                   ) && (
                     <div className="mt-2 w-[20%]">
-                      <h3 className="flex justify-center mb-3 text-lg">REG</h3>
+                      <h3 className="flex justify-center mb-3 text-md">REG</h3>
                       {category.menu?.map(
                         (menuItem) =>
                           menuItem.reg !== undefined &&
@@ -134,7 +135,7 @@ export default function Menu({
                               className="border-b border-zinc-700 py-2"
                             >
                               <div className="flex gap-2 text-base justify-center">
-                                <p>
+                                <p className="text-sm">
                                   {typeof menuItem.reg === "number"
                                     ? `${
                                         menuItem.reg < 0.99 ? "+ " : ""
@@ -155,7 +156,7 @@ export default function Menu({
                         menuItem.lrg !== "0"
                     ) && (
                       <div className="mt-2 w-[20%]">
-                        <h3 className="flex justify-center mb-3 text-lg">
+                        <h3 className="flex justify-center mb-3 text-md">
                           LRG
                         </h3>
                         {category.menu?.map(
@@ -168,7 +169,7 @@ export default function Menu({
                                 className="border-b border-zinc-700 py-2"
                               >
                                 <div className="flex gap-2 text-base justify-center">
-                                  <p>
+                                  <p className="text-sm">
                                     {menuItem.lrg === 0 || menuItem.lrg === "0"
                                       ? "-" // Render a blank space instead of skipping
                                       : typeof menuItem.lrg === "number"
@@ -188,5 +189,7 @@ export default function Menu({
         </CardContent>
       </Collapse>
     </Card>
+    
+    
   );
 }
