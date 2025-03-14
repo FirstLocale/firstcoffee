@@ -6,7 +6,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: test
+      - SHOPIFY_STORE_DOMAIN=${SHOPIFY_STORE_DOMAIN}
+      - SHOPIFY_STOREFRONT_ACCESS_TOKEN=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}
     depends_on:
       - selenium
 
