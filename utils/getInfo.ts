@@ -10,8 +10,8 @@ export async function GetInfo(
   resolveImageUrls: boolean = false // Default false
 ): Promise<ShopifyMetaobjectConnection | null> {
   try {
-    //console.log("Fetching data from Shopify...");
-    //console.log("Store Domain:", process.env.SHOPIFY_STORE_DOMAIN);
+    console.log("Fetching data from Shopify...");
+    console.log("Store Domain:", process.env.SHOPIFY_STORE_DOMAIN);
 
     const response = await fetch(
       `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2024-01/graphql.json`,
