@@ -101,9 +101,11 @@ export default async function Home() {
                         -{" "}
                         <a
                           href={home.hyperlink}
-                          className="underline hover:opacity-80"
+                          target="_blank"
+                          rel="noopen noreferrer"
+                          className="underline decoration-orange-500 hover:opacity-80"
                         >
-                          HERE
+                          Here.
                         </a>
                       </>
                     )}
@@ -139,9 +141,11 @@ export default async function Home() {
                           -{" "}
                           <a
                             href={home.hyperlink}
-                            className="underline hover:opacity-80"
+                            target="_blank"
+                            rel="noopen noreferrer"
+                            className="underline decoration-orange-500 hover:opacity-80"
                           >
-                            HERE
+                            Here.
                           </a>
                         </>
                       )}
@@ -163,9 +167,11 @@ export default async function Home() {
                           -{" "}
                           <a
                             href={home.hyperlink}
-                            className="underline hover:opacity-80"
+                            target="_blank"
+                            rel="noopen noreferrer"
+                            className="underline decoration-orange-500 hover:opacity-80"
                           >
-                            HERE
+                            Here.
                           </a>
                         </>
                       )}
