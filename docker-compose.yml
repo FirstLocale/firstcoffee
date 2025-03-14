@@ -1,6 +1,6 @@
 services:
   app: # Name of the service (could be 'web' or 'app' too)
-    container_name: firstcoffeeV3 # Explicitly names the container
+    container_name: firstcoffeeV1 # Explicitly names the container
 
     build:
       context: . # Build context - where Docker looks for Dockerfile

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { ShopifyMetaobject } from "@/utils/types";
 import GallerySlider from "@/components/GalleryEffect";
 
+//! THIS TEST COMMENT IS FOR TESTING NEW GITHUB REPO ORG
+
 export default async function Home() {
   const homeData = await GetInfo("home_info", "gallery", true); // No second parameter, third parameter is true
 
