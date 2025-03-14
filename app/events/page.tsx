@@ -69,6 +69,10 @@ export default async function EventsPage() {
     };
   });
 
+  //! deployment Railway debugging:
+  console.log("Shopify Store Domain (from env):", process.env.SHOPIFY_STORE_DOMAIN);
+  console.log("Shopify Access Token (from env):", process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN);
+
   return (
     <div className="max-w-screen-lg mx-auto font-cutive px-2 pb-5 sm:px-6 pt-36">
       {events.map((event, index) => (
