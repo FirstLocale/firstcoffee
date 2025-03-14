@@ -2,7 +2,7 @@ services:
   app: # Name of the service (could be 'web' or 'app' too)
     container_name: firstcontainer # Explicitly names the container
     #! UPDATE TAG NAME BEFORE PUSHING CHANGES /firstimage:Vx
-    image: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/firstimage:V2
+    image: docker.io/${DOCKER_HUB_USERNAME}/firstimage:V2.1
 
     build:
       context: . # Build context - where Docker looks for Dockerfile
