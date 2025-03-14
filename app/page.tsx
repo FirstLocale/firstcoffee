@@ -42,6 +42,7 @@ export default async function Home() {
       width: parseInt(getFieldValue(homeNode, "width") || "0"),
       height: parseInt(getFieldValue(homeNode, "height") || "0"),
       text: getFieldValue(homeNode, "text"),
+      hyperlink: getFieldValue(homeNode, "hyperlink"),
     };
   });
 
@@ -63,8 +64,6 @@ export default async function Home() {
         height: parseInt(getFieldValue(galleryNode, "height") || "0"),
       };
     }) || [];
-
-    
 
   return (
     <div className="max-w-screen-lg mx-auto font-cutive px-2 pb-5 sm:px-6 pt-36">
@@ -96,6 +95,18 @@ export default async function Home() {
                 <p className="text-sm">
                   <span className="text-white">
                     {home.text}
+                    {home.hyperlink && (
+                      <>
+                        {" "}
+                        -{" "}
+                        <a
+                          href={home.hyperlink}
+                          className="underline hover:opacity-80"
+                        >
+                          HERE
+                        </a>
+                      </>
+                    )}
                   </span>
                 </p>
               </div>
@@ -120,7 +131,21 @@ export default async function Home() {
                     <h1 className="text-xl font-bold mb-4">
                       {String(home.title).toUpperCase()}
                     </h1>
-                    <p className="text-sm">{home.text}</p>
+                    <p className="text-sm">
+                      {home.text}
+                      {home.hyperlink && (
+                        <>
+                          {" "}
+                          -{" "}
+                          <a
+                            href={home.hyperlink}
+                            className="underline hover:opacity-80"
+                          >
+                            HERE
+                          </a>
+                        </>
+                      )}
+                    </p>
                   </div>
                 </>
               ) : (
@@ -130,7 +155,21 @@ export default async function Home() {
                     <h1 className="text-xl font-bold mb-4">
                       {String(home.title).toUpperCase()}
                     </h1>
-                    <p className="text-sm">{home.text}</p>
+                    <p className="text-sm">
+                      {home.text}
+                      {home.hyperlink && (
+                        <>
+                          {" "}
+                          -{" "}
+                          <a
+                            href={home.hyperlink}
+                            className="underline hover:opacity-80"
+                          >
+                            HERE
+                          </a>
+                        </>
+                      )}
+                    </p>
                   </div>
                   <div className="md:w-1/2 order-1 md:order-2 pb-10">
                     <Image
