@@ -1,0 +1,9 @@
+{
+    "build": {
+        "builder": "DOCKERFILE",
+        "buildCommand": "docker build --build-arg SHOPIFY_STORE_DOMAIN=${SHOPIFY_STORE_DOMAIN} --build-arg SHOPIFY_STOREFRONT_ACCESS_TOKEN=${SHOPIFY_STOREFRONT_ACCESS_TOKEN} --build-arg DOCKER_HUB_USERNAME=${DOCKER_HUB_USERNAME} -t firstcoffee ."
+    },
+    "deploy": {
+        "startCommand": "docker run -p $PORT:3000 firstcoffee"
+    }
+}

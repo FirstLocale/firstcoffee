@@ -24,3 +24,6 @@
     1g- to confirm they are set, run:
         echo $SHOPIFY_STOREFRONT_ACCESS_TOKEN
         echo $SHOPIFY_STORE_DOMAIN
+
+### Update 14/03/2025
+in terminal run: docker-compose --env-file .env.local up
