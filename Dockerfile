@@ -28,6 +28,13 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
+ARG SHOPIFY_STORE_DOMAIN
+ARG SHOPIFY_STOREFRONT_ACCESS_TOKEN
+ARG DOCKER_HUB_USERNAME
+
+ENV SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN
+ENV SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN
+ENV DOCKER_HUB_USERNAME=$DOCKER_HUB_USERNAME
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
