@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      secrets:
+        - shopify_domain
+        - shopify_token
     ports:
       - "3000:3000"
     environment:
