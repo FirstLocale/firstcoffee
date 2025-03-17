@@ -20,6 +20,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      
+      #! Using Docker Build Secrets:
+      - name: Create temporary secret files
+        run: |
+          mkdir -p ./secrets
+          echo "${{ secrets.SHOPIFY_STORE_DOMAIN }}" > ./secrets/shopify_domain.txt
+          echo "${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" > ./secrets/shopify_token.txt
 
       - name: set up docker buildx
         uses: docker/setup-buildx-action@v2
@@ -34,11 +41,17 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           #! UPDATE TAG NAME BEFORE PUSHING CHANGES /firstimage:Vx
-          tags: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/firstimage:V2.1
+          tags: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/firstimage:V2.2
+
+          #! Using Docker Build Secrets:
           build-args: |
-            SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}
-            SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
             DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
+          secrets: |
+            shopify_domain=./secrets/shopify_domain.txt
+            shopify_token=./secrets/shopify_token.txt
+      - name: Clean up secret files
+        if: always()
+        run: rm -rf ./secrets
 
   # testing with selenium
 
@@ -55,6 +68,13 @@ jobs:
           echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env.local
           echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
 
+      #! Using Docker Build Secrets:
+      - name: Create secret files for build
+        run: |
+          mkdir -p ./secrets
+          echo "${{ secrets.SHOPIFY_STORE_DOMAIN }}" > ./secrets/shopify_domain.txt
+          echo "${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" > ./secrets/shopify_token.txt
+
       - name: Debug environment variables
         run: |
           echo "Checking if env vars exist (should not show actual values):"
@@ -65,8 +85,6 @@ jobs:
           echo "Checking .env.local file:"
           cat .env.local | grep -v TOKEN | grep -v KEY
 
-        # Show file without exposing secrets
-
       - name: Start Selenium + Build service
         run: docker compose -f docker-compose.test.yml up -d
 
@@ -76,14 +94,16 @@ jobs:
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
-          docker build -t web-test -f Dockerfile.test .
+          docker build -t web-test --secret id=shopify_domain,src=./secrets/shopify_domain.txt --secret id=shopify_token,src=./secrets/shopify_token.txt -f Dockerfile.test .
           docker run --rm --network=host \
             -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
             -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN \
             web-test
 
-      - name: Stop Selenium services
+      - name: Stop Selenium services and clean up
         if: always()
-        run: docker compose down
+        run: |
+          docker compose down
+          rm -rf ./secrets
 
   # buildx doesn't store under local docker daemon image storage
