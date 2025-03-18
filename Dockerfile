@@ -30,12 +30,16 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG DOCKER_HUB_USERNAME
-
 ENV DOCKER_HUB_USERNAME=$DOCKER_HUB_USERNAME
 
-#! Both shopify ENVs & ARGs now processed via Docker Build Secret:
-RUN --mount=type=secret,id=shopify_domain \
-    --mount=type=secret,id=shopify_token \
+# ARGs to be injected by Railway (envs stored in Railway Variables)
+ARG SHOPIFY_DOMAIN
+ARG SHOPIFY_TOKEN
+ENV SHOPIFY_DOMAIN=$SHOPIFY_DOMAIN
+ENV SHOPIFY_TOKEN=$SHOPIFY_TOKEN
+
+# Add cache mount for node_modules
+RUN --mount=type=cache,id=s/$(echo $RAILWAY_SERVICE_ID)-/app/node_modules,target=/app/node_modules \
     if [ -f yarn.lock ]; then yarn run build; \
     elif [ -f package-lock.json ]; then npm run build; \
     elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
@@ -51,7 +55,6 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1 
 
 ARG DOCKER_HUB_USERNAME
-
 ENV DOCKER_HUB_USERNAME=$DOCKER_HUB_USERNAME
 
 RUN addgroup --system --gid 1001 nodejs
