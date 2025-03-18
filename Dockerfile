@@ -39,7 +39,7 @@ ENV SHOPIFY_DOMAIN=$SHOPIFY_DOMAIN
 ENV SHOPIFY_TOKEN=$SHOPIFY_TOKEN
 
 # Add cache mount for node_modules
-RUN --mount=type=cache,id=s/$(echo $125006f7-8c4c-4a04-8da2-2b60d71700a8)-/app/node_modules,target=/app/node_modules \
+RUN --mount=type=cache,id=s/125006f7-8c4c-4a04-8da2-2b60d71700a8-node_modules,target=/app/node_modules \
     if [ -f yarn.lock ]; then yarn run build; \
     elif [ -f package-lock.json ]; then npm run build; \
     elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
