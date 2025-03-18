@@ -29,22 +29,34 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
-ARG DOCKER_HUB_USERNAME
-ENV DOCKER_HUB_USERNAME=$DOCKER_HUB_USERNAME
-
-# ARGs to be injected by Railway (envs stored in Railway Variables)
+# Define ARGs for Railway to inject
 ARG SHOPIFY_DOMAIN
 ARG SHOPIFY_TOKEN
+ARG DOCKER_HUB_USERNAME
+
+# Set them as environment variables
 ENV SHOPIFY_DOMAIN=$SHOPIFY_DOMAIN
 ENV SHOPIFY_TOKEN=$SHOPIFY_TOKEN
+ENV DOCKER_HUB_USERNAME=$DOCKER_HUB_USERNAME
 
 # Add cache mount for node_modules
-RUN \
-    if [ -f yarn.lock ]; then yarn run build; \
-    elif [ -f package-lock.json ]; then npm run build; \
-    elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-    else echo "Lockfile not found." && exit 1; \
-    fi
+RUN if [ -f yarn.lock ]; then \
+      echo "Building with Yarn" && \
+      yarn --version && \
+      yarn run build; \
+      elif [ -f package-lock.json ]; then \
+      echo "Building with NPM" && \
+      npm --version && \
+      npm run build; \
+      elif [ -f pnpm-lock.yaml ]; then \
+      echo "Building with PNPM" && \
+      corepack enable pnpm && \
+      pnpm --version && \
+      pnpm run build; \
+      else \
+      echo "No lockfile found" && \
+      exit 1; \
+      fi
 
 # Production image, copy all the files and run next
 FROM base AS runner
