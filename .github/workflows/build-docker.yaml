@@ -41,7 +41,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           #! UPDATE TAG NAME BEFORE PUSHING CHANGES /firstimage:Vx
-          tags: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/firstimage:V2.2
+          tags: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/firstimage:V3.0
 
           #! Using Docker Build Secrets:
           build-args: |
