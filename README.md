@@ -27,3 +27,5 @@
 
 ### Update 14/03/2025
 in terminal run: docker-compose --env-file .env.local up
+### Update 18/03/2025
+Railway builds off the Dockerfile.railway, GitHub Actions & Docker Image build off Dockerfile (hence the use of Build Secrets)
