@@ -70,15 +70,7 @@ jobs:
 
       - name: Debug environment variables
         run: |
-          echo "Checking if env vars exist (should not show actual values):"
-          if [ -n "$SHOPIFY_STORE_DOMAIN" ]; then echo "SHOPIFY_STORE_DOMAIN is set"; else echo "SHOPIFY_STORE_DOMAIN is NOT set"; fi
-          if [ -n "$SHOPIFY_STOREFRONT_ACCESS_TOKEN" ]; then echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN is set"; else echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN is NOT set"; fi
-          if [ -n "$DOCKER_HUB_USERNAME" ]; then echo "DOCKER_HUB_USERNAME is set"; else echo "DOCKER_HUB_USERNAME is NOT set"; fi
-
           echo "Checking .env.local file:"
-          cat .env.local | grep -v TOKEN | grep -v KEY
-
-          echo "Without grep"
           cat .env.local
 
         # Show file without exposing secrets
