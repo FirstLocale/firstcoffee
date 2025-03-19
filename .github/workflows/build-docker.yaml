@@ -21,18 +21,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      #! Using Docker Build Secrets:
-      - name: Create temporary secret files
-        run: |
-          mkdir -p ./secrets
-          echo "${{ secrets.SHOPIFY_STORE_DOMAIN }}" > ./secrets/shopify_domain.txt
-          echo "${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" > ./secrets/shopify_token.txt
-
       - name: set up docker buildx
         uses: docker/setup-buildx-action@v2
         with:
           driver-opts: image=moby/buildkit:latest
-        # replace "latest" with stable version if needed
+          # replace "latest" with stable version if needed
 
       - name: build and push docker image
         if: github.event_name == 'push'
@@ -46,12 +39,6 @@ jobs:
           #! Using Docker Build Secrets:
           build-args: |
             DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
-          secrets: |
-            shopify_domain=./secrets/shopify_domain.txt
-            shopify_token=./secrets/shopify_token.txt
-      - name: Clean up secret files
-        if: always()
-        run: rm -rf ./secrets
 
   # testing with selenium
 
@@ -62,21 +49,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create .env.local file for CI
+      - name: Create .env file for CI
         run: |
-          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env.local
+          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env.local 
           echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env.local
           echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
+          cat .env.local > .env
 
-      - name: Debug environment variables
+      - name: Debug environment variables & secrets
         run: |
-          echo "Checking if env vars exist (should not show actual values):"
-          if [ -n "$SHOPIFY_STORE_DOMAIN" ]; then echo "SHOPIFY_STORE_DOMAIN is set"; else echo "SHOPIFY_STORE_DOMAIN is NOT set"; fi
-          if [ -n "$SHOPIFY_STOREFRONT_ACCESS_TOKEN" ]; then echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN is set"; else echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN is NOT set"; fi
-          if [ -n "$DOCKER_HUB_USERNAME" ]; then echo "DOCKER_HUB_USERNAME is set"; else echo "DOCKER_HUB_USERNAME is NOT set"; fi
-
           echo "Checking .env.local file:"
-          cat .env.local | grep -v TOKEN | grep -v KEY
+          cat .env.local
+          echo "Checking .env files:"
+          cat .env
 
         # Show file without exposing secrets
 
