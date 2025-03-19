@@ -3,9 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      secrets:
-        - shopify_domain
-        - shopify_token
+      secrets: |
+        "shopify_domain=${{ secrets.SHOPIFY_STORE_DOMAIN }}"
+        "shopify_token=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}"
+
     ports:
       - "3000:3000"
     environment:
