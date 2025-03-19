@@ -3,9 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      secrets: |
-        "shopify_domain=${{ secrets.SHOPIFY_STORE_DOMAIN }}"
-        "shopify_token=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}"
+      secrets:
+        - shopify_domain
+        - shopify_token
 
     ports:
       - "3000:3000"
@@ -15,8 +15,25 @@ services:
     depends_on:
       - selenium
 
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      - SHOPIFY_STORE_DOMAIN=${SHOPIFY_STORE_DOMAIN}
+      - SHOPIFY_STOREFRONT_ACCESS_TOKEN=${SHOPIFY_STOREFRONT_ACCESS_TOKEN}
+    depends_on:
+      - app
+      - selenium
+
   selenium:
     image: selenium/standalone-chrome:latest
     shm_size: 2g # Prevents insufficient memory crash
     ports:
       - "4444:4444"
+
+  secrets:
+    shopify_domain:
+      file: ./secrets/shopify_domain.txt
+    shopify_token:
+      file: ./secrets/shopify_token.txt
