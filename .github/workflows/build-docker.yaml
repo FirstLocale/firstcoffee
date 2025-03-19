@@ -64,7 +64,7 @@ jobs:
 
       - name: Create .env.local file for CI
         run: |
-          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" >> .env.local
+          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env.local
           echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env.local
           echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
 
@@ -77,6 +77,9 @@ jobs:
 
           echo "Checking .env.local file:"
           cat .env.local | grep -v TOKEN | grep -v KEY
+
+          echo "Without grep"
+          cat .env.local
 
         # Show file without exposing secrets
 
