@@ -7,9 +7,6 @@ services:
     build:
       context: . # Build context - where Docker looks for Dockerfile
       target: base # Specifically targets the development stage in multi-stage Dockerfile
-      # secrets:
-      #   - shopify_domain
-      #   - shopify_token
 
     working_dir: /app
 
@@ -32,9 +29,3 @@ services:
 
     ports:
       - 3000:3000 # Map container port to host port
-
-# secrets:
-#   shopify_domain:
-#     file: ./secrets/shopify_domain.txt
-#   shopify_token:
-#     file: ./secrets/shopify_token.txt
