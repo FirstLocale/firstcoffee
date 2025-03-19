@@ -68,10 +68,20 @@ jobs:
           echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env.local
           echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
 
-      - name: Debug environment variables
+      # Using Docker Build Secrets:
+      - name: Create secret files for build
+        run: |
+          mkdir -p ./secrets
+          echo "${{ secrets.SHOPIFY_STORE_DOMAIN }}" > ./secrets/shopify_domain.txt
+          echo "${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" > ./secrets/shopify_token.txt
+
+      - name: Debug environment variables & secrets
         run: |
           echo "Checking .env.local file:"
           cat .env.local
+          echo "Checking secrets:"
+          cat ./secrets/shopify_domain.txt
+          cat ./secrets/shopify_token.txt
 
         # Show file without exposing secrets
 
