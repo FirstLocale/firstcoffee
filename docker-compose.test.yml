@@ -6,7 +6,6 @@ services:
       secrets:
         - shopify_domain
         - shopify_token
-
     ports:
       - "3000:3000"
     environment:
@@ -32,8 +31,8 @@ services:
     ports:
       - "4444:4444"
 
-  secrets:
-    shopify_domain:
-      file: ./secrets/shopify_domain.txt
-    shopify_token:
-      file: ./secrets/shopify_token.txt
+secrets:
+  shopify_domain:
+    file: ./secrets/shopify_domain.txt
+  shopify_token:
+    file: ./secrets/shopify_token.txt
