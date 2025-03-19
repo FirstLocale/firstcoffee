@@ -69,20 +69,10 @@ jobs:
           echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
           cat .env.local > .env
 
-      # Using Docker Build Secrets:
-      - name: Create secret files for build
-        run: |
-          mkdir -p ./secrets
-          echo "${{ secrets.SHOPIFY_STORE_DOMAIN }}" > ./secrets/shopify_domain.txt
-          echo "${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" > ./secrets/shopify_token.txt
-
       - name: Debug environment variables & secrets
         run: |
           echo "Checking .env.local file:"
           cat .env.local
-          echo "Checking secrets:"
-          cat ./secrets/shopify_domain.txt
-          cat ./secrets/shopify_token.txt
           echo "Checking .env file:"
           cat .env
 
@@ -97,7 +87,7 @@ jobs:
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
-          docker build -t web-test --secret id=shopify_domain,src=./secrets/shopify_domain.txt --secret id=shopify_token,src=./secrets/shopify_token.txt -f Dockerfile.test .
+          docker build -t web-test -f Dockerfile.test .
           docker run --rm --network=host \
             -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
             -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN \
@@ -107,6 +97,5 @@ jobs:
         if: always()
         run: |
           docker compose down
-          rm -rf ./secrets
 
   # buildx doesn't store under local docker daemon image storage
