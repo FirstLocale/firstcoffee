@@ -22,12 +22,11 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       #! Using Docker Build Secrets:
-      - name: Create temporary secret files
-        run: |
-          mkdir -p ./secrets
-          echo "${{ secrets.SHOPIFY_STORE_DOMAIN }}" > ./secrets/shopify_domain.txt
-          echo "${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" > ./secrets/shopify_token.txt
-
+      # - name: Create temporary secret files
+      #   run: |
+      #     mkdir -p ./secrets
+      #     echo "${{ secrets.SHOPIFY_STORE_DOMAIN }}" > ./secrets/shopify_domain.txt
+      #     echo "${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" > ./secrets/shopify_token.txt
       - name: set up docker buildx
         uses: docker/setup-buildx-action@v2
         with:
@@ -46,12 +45,12 @@ jobs:
           #! Using Docker Build Secrets:
           build-args: |
             DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
-          secrets: |
-            shopify_domain=./secrets/shopify_domain.txt
-            shopify_token=./secrets/shopify_token.txt
+          # secrets: |
+          #   shopify_domain=./secrets/shopify_domain.txt
+          #   shopify_token=./secrets/shopify_token.txt
       - name: Clean up secret files
         if: always()
-        run: rm -rf ./secrets
+        # run: rm -rf ./secrets
 
   # testing with selenium
 
@@ -62,17 +61,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create .env.local & .env file for CI
+      - name: Create .env file for CI
         run: |
-          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env.local 
-          echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env.local
-          echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
-          cat .env.local > .env
+          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env 
+          echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
+          echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env
 
       - name: Debug environment variables & secrets
         run: |
-          echo "Checking .env.local file:"
-          cat .env.local
           echo "Checking .env file:"
           cat .env
 
