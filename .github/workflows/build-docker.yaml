@@ -51,13 +51,16 @@ jobs:
 
       - name: Create .env file for CI
         run: |
-          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env 
-          echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
-          echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env
+          echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env.local 
+          echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env.local
+          echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
+          cat .env.local > .env
 
       - name: Debug environment variables & secrets
         run: |
-          echo "Checking .env file:"
+          echo "Checking .env.local file:"
+          cat .env.local
+          echo "Checking .env files:"
           cat .env
 
         # Show file without exposing secrets
