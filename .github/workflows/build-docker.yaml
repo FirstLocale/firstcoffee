@@ -88,17 +88,25 @@ jobs:
 
         # Show file without exposing secrets
 
-      - name: Start services and run tests
-        run: docker compose -f docker-compose.test.yml up --build --exit-code-from test
+      - name: Start Selenium + Build service
+        run: docker compose -f docker-compose.test.yml up -d
+
+      - name: Build and run tests
         env:
           SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        run: |
+          docker build -t web-test --secret id=shopify_domain,src=./secrets/shopify_domain.txt --secret id=shopify_token,src=./secrets/shopify_token.txt -f Dockerfile.test .
+          docker run --rm --network=host \
+            -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
+            -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN \
+            web-test
 
       - name: Stop Selenium services
         if: always()
         run: |
-          docker compose -f docker-compose.test.yml down
+          docker compose down
           rm -rf ./secrets
 
   # buildx doesn't store under local docker daemon image storage
