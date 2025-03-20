@@ -76,8 +76,6 @@ jobs:
         run: |
           docker build -t web-test -f Dockerfile.test .
           docker run --rm --network=host \
-            -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
-            -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN \
             web-test
 
       - name: Stop Selenium services
