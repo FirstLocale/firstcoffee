@@ -58,26 +58,34 @@ jobs:
 
       - name: Debug environment variables & secrets
         run: |
-          echo "Checking .env.local file:"
-          cat .env.local
-          echo "Checking .env files:"
-          cat .env
+          echo "SHOPIFY_STORE_DOMAIN exists: ${{ secrets.SHOPIFY_STORE_DOMAIN != '' }}"
+          echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN exists: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN != '' }}"
 
-        # Show file without exposing secrets
+      # Show file without exposing secrets
 
-      - name: Start Selenium + Build service
-        run: docker compose -f docker-compose.test.yml up -d
+      - name: Start Selenium
+        run: |
+          docker run -d --name selenium --shm-size=2g -p 4444:4444 selenium/standalone-chrome:latest
+
+      - name: Build app with environment variables
+        run: |
+          docker build \
+           --build-arg SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }} \
+           --build-arg SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }} \
+           -t app-image \
+           -f Dockerfile.railway .
+
+      - name: Run app
+        run: |
+          docker run -d --name app -p 3000:3000 \
+            -e SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }} \
+            -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }} \
+            app-image
 
       - name: Build and run tests
-        env:
-          SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
-          SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
-          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
           docker build -t web-test -f Dockerfile.test .
           docker run --rm --network=host \
-            -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
-            -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN \
             web-test
 
       - name: Stop Selenium services
