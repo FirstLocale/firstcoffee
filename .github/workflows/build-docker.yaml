@@ -78,7 +78,7 @@ jobs:
           echo "Domain length: ${#SHOPIFY_STORE_DOMAIN}" > env_check.txt
           echo "Token length: ${#SHOPIFY_STOREFRONT_ACCESS_TOKEN}" >> env_check.txt
           cat env_check.txt
-          docker compose -f docker-compose.test.yml up -d
+          docker compose -f docker-compose.test.yml --env-file .env up -d
 
       - name: Build and run tests
         env:

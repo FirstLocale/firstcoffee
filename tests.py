@@ -51,7 +51,7 @@ def check_page_elements(url, selectors=None):
         except TimeoutException:
             print(f"✗ Could not find {name} using selector: {selector}")
             # Take screenshot on failure to help debug
-            print(driver.page_source)
+            # print(driver.page_source)
             driver.save_screenshot(f"error_{url.replace('://', '_').replace('/', '_')}.png")
         except Exception as e:
             print(f"✗ Error checking {name}: {e}")

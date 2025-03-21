@@ -30,13 +30,13 @@ export default async function EventsPage() {
   const formatDate = (dateString: string): string => {
     const dateObj = new Date(dateString);
 
-    return new Intl.DateTimeFormat('en-GB', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: false
+    return new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: false,
     }).format(dateObj);
   };
 
@@ -72,11 +72,15 @@ export default async function EventsPage() {
   return (
     <div className="max-w-screen-lg mx-auto font-cutive px-2 pb-5 sm:px-6 pt-36">
       {events.map((event, index) => (
-        <div key={event.id} className="flex flex-col pb-6 md:flex-row items-center gap-8">
+        <div
+          key={event.id}
+          className="flex flex-col pb-6 md:flex-row items-center gap-8"
+        >
           {index % 2 !== 0 ? (
             <>
               <div className="md:w-1/2 pb-10">
-                <Image className="rounded-md"
+                <Image
+                  className="rounded-md"
                   src={event.image}
                   alt={event.alt}
                   width={event.width}
@@ -84,9 +88,9 @@ export default async function EventsPage() {
                 />
               </div>
               <div className="px-5 md:w-1/2">
-                <h2 className="text-xl font-bold mb-4">{event.title}</h2>
+                <h1 className="text-xl font-bold mb-4">{event.title}</h1>
                 <p className="text-sm">{event.desc}</p>
-                
+
                 {event.dates.length > 0 && (
                   <div className="mt-4">
                     {event.dates.map((date) => (
@@ -101,9 +105,9 @@ export default async function EventsPage() {
           ) : (
             <>
               <div className="px-5 md:w-1/2 order-2 md:order-1">
-                <h2 className="text-xl font-bold mb-4">{event.title}</h2>
+                <h1 className="text-xl font-bold mb-4">{event.title}</h1>
                 <p className="text-sm">{event.desc}</p>
-                
+
                 {event.dates.length > 0 && (
                   <div className="mt-4">
                     {event.dates.map((date) => (
@@ -115,7 +119,8 @@ export default async function EventsPage() {
                 )}
               </div>
               <div className="md:w-1/2 order-1 md:order-2 pb-10">
-                <Image className="rounded-md"
+                <Image
+                  className="rounded-md"
                   src={event.image}
                   alt={event.alt}
                   width={event.width}
