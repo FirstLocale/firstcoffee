@@ -58,6 +58,8 @@ jobs:
 
       - name: Debug environment variables & secrets
         run: |
+          echo "SHOPIFY_STORE_DOMAIN exists: ${{ secrets.SHOPIFY_STORE_DOMAIN != '' }}"
+          echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN exists: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN != '' }}"
           echo "Checking .env.local file:"
           cat .env.local
           echo "Checking .env files:"
@@ -74,8 +76,13 @@ jobs:
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
+          echo "Domain length: ${#SHOPIFY_STORE_DOMAIN}" > env_check.txt
+          echo "Token length: ${#SHOPIFY_STOREFRONT_ACCESS_TOKEN}" >> env_check.txt
+          cat env_check.txt
           docker build -t web-test -f Dockerfile.test .
           docker run --rm --network=host \
+            -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
+            -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN \
             web-test
 
       - name: Stop Selenium services
