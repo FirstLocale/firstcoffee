@@ -194,6 +194,7 @@ export default async function Home() {
           )}
         </div>
       ))}
+      <p className="test">{process.env.TEST}</p>
     </div>
   );
 }

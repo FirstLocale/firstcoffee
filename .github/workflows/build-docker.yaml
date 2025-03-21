@@ -72,8 +72,7 @@ jobs:
           SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
-          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          TEST: test
         run: |
           echo "Domain length: ${#SHOPIFY_STORE_DOMAIN}" > env_check.txt
           echo "Token length: ${#SHOPIFY_STOREFRONT_ACCESS_TOKEN}" >> env_check.txt
@@ -85,11 +84,10 @@ jobs:
           SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TEST: test
         run: |
           docker build -t web-test -f Dockerfile.test .
           docker run --rm --network=host \
-            -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
-            -e SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN \
             web-test
 
       - name: Stop Selenium services
