@@ -68,7 +68,6 @@ pages_to_test = [
             "h1": "//h1[contains(@class, 'text-xl') and contains(@class, 'font-bold')]",
             "text": "//p[contains(@class, 'text-sm')]",
             "image": "//img[contains(@alt, 'straight outta clopton')]",
-            "p": "//p[contains(@class, 'test')]"
         }
     },
     {
@@ -85,7 +84,7 @@ pages_to_test = [
     },
     {
         "url": "http://localhost:3000/menus",
-        "selectors": {"h1": "//h1", "paragraph": "//p"}
+        "selectors": {"span": "//span[contains(@class, 'MuiCardHeader-title')]"}
     }
 ]
 

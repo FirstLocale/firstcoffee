@@ -54,17 +54,12 @@ jobs:
           echo "SHOPIFY_STORE_DOMAIN=${{ secrets.SHOPIFY_STORE_DOMAIN }}" > .env.local 
           echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env.local
           echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> .env.local
-          echo "TEST=test" >> .env.local
           cat .env.local > .env
 
       - name: Debug environment variables & secrets
         run: |
           echo "SHOPIFY_STORE_DOMAIN exists: ${{ secrets.SHOPIFY_STORE_DOMAIN != '' }}"
           echo "SHOPIFY_STOREFRONT_ACCESS_TOKEN exists: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN != '' }}"
-          echo "Checking .env.local file:"
-          cat .env.local
-          echo "Checking .env files:"
-          cat .env
 
       # Show file without exposing secrets
 
