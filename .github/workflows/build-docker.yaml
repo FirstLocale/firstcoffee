@@ -68,9 +68,6 @@ jobs:
         # Show file without exposing secrets
 
       - name: Start Selenium + Build service
-        run: docker compose -f docker-compose.test.yml up -d
-
-      - name: Build and run tests
         env:
           SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
@@ -79,6 +76,14 @@ jobs:
           echo "Domain length: ${#SHOPIFY_STORE_DOMAIN}" > env_check.txt
           echo "Token length: ${#SHOPIFY_STOREFRONT_ACCESS_TOKEN}" >> env_check.txt
           cat env_check.txt
+          docker compose -f docker-compose.test.yml up -d
+
+      - name: Build and run tests
+        env:
+          SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+          SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        run: |
           docker build -t web-test -f Dockerfile.test .
           docker run --rm --network=host \
             -e SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN \
