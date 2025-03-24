@@ -18,7 +18,7 @@ jobs:
         id: set-version
         run: |
           VERSION=$(jq -r '.version' package.json)
-          DOCKER_TAG="v${VERSION}+${{ github.run_number }}"
+          DOCKER_TAG="v${VERSION}-${{ github.run_number }}"
           echo "version=${DOCKER_TAG}" >> $GITHUB_OUTPUT
           echo "Using version: ${DOCKER_TAG}"
 
