@@ -11,6 +11,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Image from "next/image";
 import { Drink, Food } from "../utils/types";
+import { menuitem } from "motion/react-client";
 
 type MenuProps = {
   title: string;
@@ -50,8 +51,7 @@ export default function Menu({
   };
 
   return (
-    
-      <Card sx={{ maxWidth: 500 }}>
+    <Card sx={{ maxWidth: 500 }}>
       <CardHeader title={title} />
       <CardMedia
         component="img"
@@ -78,7 +78,9 @@ export default function Menu({
                   {category.item}
                 </h1>
                 {"desc" in category && category.desc && (
-                  <p className="text-sm text-zinc-400 pb-4 sm:leading-normal leading-relaxed sm:tracking-normal tracking-wide">{category.desc}</p>
+                  <p className="text-sm text-zinc-400 pb-4 sm:leading-normal leading-relaxed sm:tracking-normal tracking-wide">
+                    {category.desc}
+                  </p>
                 )}
                 {headerImage.endsWith("avif") ? (
                   <Image
@@ -108,13 +110,17 @@ export default function Menu({
                       {category.menu?.map(
                         (menuItem) =>
                           menuItem.item && (
-                            <div
-                              key={menuItem.id}
-                              className="border-b border-zinc-700 py-2"
-                            >
-                              <div className="flex gap-2 text-base justify-center">
-                                <p className="text-sm">{menuItem.item}</p>
+                            <div key={menuItem.id}>
+                              <div className="border-b border-zinc-700 py-2">
+                                <div className="flex gap-2 text-base justify-center">
+                                  <p className="text-sm">{menuItem.item}</p>
+                                </div>
                               </div>
+                              {showLarge && menuItem.opts && (
+                                <div className="border-b border-zinc-700 py-2 text-sm text-zinc-400 text-center">
+                                  {menuItem.opts}
+                                </div>
+                              )}
                             </div>
                           )
                       )}
@@ -189,7 +195,5 @@ export default function Menu({
         </CardContent>
       </Collapse>
     </Card>
-    
-    
   );
 }
