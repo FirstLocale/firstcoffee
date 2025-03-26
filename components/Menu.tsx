@@ -11,7 +11,6 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Image from "next/image";
 import { Drink, Food } from "../utils/types";
-import { menuitem } from "motion/react-client";
 
 type MenuProps = {
   title: string;
