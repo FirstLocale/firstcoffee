@@ -98,95 +98,74 @@ export default function Menu({
                     width={category.width}
                   />
                 )}
-                <div className="flex gap-6 py-4">
-                  {category.menu?.some((menuItem) => menuItem.item) && (
-                    <div
-                      className={`mt-2 ${showLarge ? "w-[50%]" : "w-[70%]"}`}
-                    >
-                      <h3 className="flex justify-center mb-3 text-md">
+                {/* Using TailWind Table for Drink,Reg, Lrg */}
+                <div className="table w-full mt-4">
+                  {/* Table Header */}
+                  <div className="table-header-group">
+                    <div className="table-row">
+                      <div className="table-cell text-center font-bold pb-2">
                         {title.startsWith("Drink") ? "DRINK" : "ITEM"}
-                      </h3>
-                      {category.menu?.map(
-                        (menuItem) =>
-                          menuItem.item && (
-                            <div key={menuItem.id}>
-                              <div className="border-b border-zinc-700 py-2">
-                                <div className="flex gap-2 text-base justify-center">
-                                  <p className="text-sm">{menuItem.item}</p>
-                                </div>
-                              </div>
-                              {showLarge && menuItem.opts && (
-                                <div className="border-b border-zinc-700 py-2 text-sm text-zinc-400 text-center">
-                                  {menuItem.opts}
-                                </div>
-                              )}
-                            </div>
-                          )
-                      )}
-                    </div>
-                  )}
-                  {category.menu?.some(
-                    (menuItem) =>
-                      menuItem.reg !== undefined && menuItem.reg !== null
-                  ) && (
-                    <div className="mt-2 w-[20%]">
-                      <h3 className="flex justify-center mb-3 text-md">REG</h3>
-                      {category.menu?.map(
-                        (menuItem) =>
-                          menuItem.reg !== undefined &&
-                          menuItem.reg !== null && (
-                            <div
-                              key={menuItem.id}
-                              className="border-b border-zinc-700 py-2"
-                            >
-                              <div className="flex gap-2 text-base justify-center">
-                                <p className="text-sm">
-                                  {typeof menuItem.reg === "number"
-                                    ? `${
-                                        menuItem.reg < 0.99 ? "+ " : ""
-                                      }${menuItem.reg.toFixed(2)}`
-                                    : `${menuItem.reg}`}
-                                </p>
-                              </div>
-                            </div>
-                          )
-                      )}
-                    </div>
-                  )}
-                  {showLarge &&
-                    category.menu?.some(
-                      (menuItem) =>
-                        menuItem.lrg !== undefined &&
-                        menuItem.lrg !== null &&
-                        menuItem.lrg !== "0"
-                    ) && (
-                      <div className="mt-2 w-[20%]">
-                        <h3 className="flex justify-center mb-3 text-md">
+                      </div>
+                      <div className="table-cell text-center font-bold pb-2">
+                        REG
+                      </div>
+                      {showLarge && (
+                        <div className="table-cell text-center font-bold pb-2">
                           LRG
-                        </h3>
-                        {category.menu?.map(
-                          (menuItem) =>
-                            menuItem.lrg !== undefined &&
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Table Body */}
+                  <div className="table-row-group">
+                    {category.menu?.map((menuItem) => (
+                      <div key={menuItem.id} className="table-row">
+                        {/* DRINK / ITEM column */}
+                        <div className="table-cell border-b border-zinc-700 py-2 align-top">
+                          <p className="text-sm">{menuItem.item}</p>
+                          {showLarge && menuItem.opts && (
+                            <p className="text-xs text-zinc-400 mt-1">
+                              {menuItem.opts}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* REG column */}
+                        <div className="table-cell border-b border-zinc-700 py-2 px-6 align-top text-center">
+                          {menuItem.reg !== undefined && menuItem.reg !== null ? (
+                            <p className="text-sm">
+                              {typeof menuItem.reg === "number"
+                                ? `${menuItem.reg < 0.99 ? "+ " : ""}${menuItem.reg.toFixed(2)}`
+                                : menuItem.reg}
+                            </p>
+                          ) : (
+                            // If there's no reg value, render an empty cell
+                            <p className="text-sm">-</p>
+                          )}
+                        </div>
+
+                        {/* LRG column (conditional) */}
+                        {showLarge && (
+                          <div className="table-cell border-b border-zinc-700 py-2 align-top text-center">
+                            {menuItem.lrg !== undefined &&
                             menuItem.lrg !== null &&
-                            menuItem.lrg !== "0" && (
-                              <div
-                                key={menuItem.id}
-                                className="border-b border-zinc-700 py-2"
-                              >
-                                <div className="flex gap-2 text-base justify-center">
-                                  <p className="text-sm">
+                            menuItem.lrg !== "0" ? (
+                              <p className="text-sm">
                                     {menuItem.lrg === 0 || menuItem.lrg === "0"
-                                      ? "-" // Render a blank space instead of skipping
+                                      ? "-"
                                       : typeof menuItem.lrg === "number"
                                       ? menuItem.lrg.toFixed(2)
                                       : Number(menuItem.lrg).toFixed(2)}
                                   </p>
-                                </div>
-                              </div>
-                            )
+                            ) : (
+                              <p className="text-sm">-</p>
+                            )}
+                          </div>
                         )}
                       </div>
-                    )}
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
